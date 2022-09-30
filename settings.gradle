@@ -9,6 +9,7 @@ pluginManagement {
 }
 
 rootProject.name = 'carbonlogger'
+include('apps:carbonlog-backend')
 include('libs:carbonlog-base')
 include('libs:carbonlog-converter')
 
