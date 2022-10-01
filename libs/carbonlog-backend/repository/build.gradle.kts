@@ -24,11 +24,17 @@ dependencyManagement {
 }
 
 dependencies {
+
+    implementation("org.mongodb:mongodb-driver-reactivestreams")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("io.projectreactor:reactor-core")
+    implementation("org.springframework:spring-context")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    api(project(":libs:carbonlog-converter"))
+
+    api(project(":libs:carbonlog-base"))
 }
 
 tasks.withType<KotlinCompile> {

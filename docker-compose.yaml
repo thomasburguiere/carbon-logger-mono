@@ -1,0 +1,6 @@
+services:
+  carbon-measurements-db:
+    container_name: carbonlog-db-mongo
+    image: mongo
+    ports:
+      - 27017:27017

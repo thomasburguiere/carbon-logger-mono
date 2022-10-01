@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+ ch.burguiere.carbonlog.carbonlogbackend.repository.RepoConfig
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration.exclude=org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
