@@ -1,6 +1,6 @@
 ###
-GET http://localhost:18080/
+GET http://localhost:18080/carbon-logs/measurements
 
 ###
-GET http://localhost:18080/carbon-logs/measurements
+POST http://localhost:18080/carbon-logs/measurements/2.5
 

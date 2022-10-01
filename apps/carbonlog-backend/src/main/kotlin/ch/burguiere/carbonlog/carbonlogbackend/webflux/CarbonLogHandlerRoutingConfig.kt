@@ -8,9 +8,7 @@ import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.router
-import reactor.kotlin.core.publisher.toMono
 import java.time.Instant
-import javax.management.loading.ClassLoaderRepository
 
 @Configuration
 class CarbonLogHandlerRoutingConfig(private val carbonLogRepository: CarbonLogRepository) {
@@ -19,6 +17,17 @@ class CarbonLogHandlerRoutingConfig(private val carbonLogRepository: CarbonLogRe
         GET("/carbon-logs/measurements") {
             carbonLogRepository.getMeasurements().collectList()
                 .flatMap { ServerResponse.ok().body(BodyInserters.fromValue(it)) }
+        }
+
+        POST("/carbon-logs/measurements") { request ->
+            request.bodyToMono(CarbonMeasurement::class.java)
+                .flatMap { carbonLogRepository.insertMeasurement(it) }
+                .flatMap { ServerResponse.ok().build() }
+        }
+        POST("/carbon-logs/measurements/{co2Kg}") { request ->
+            val co2Kg = request.pathVariable("co2Kg").toDouble()
+            carbonLogRepository.insertMeasurement(CarbonMeasurement(co2Kg, Instant.now()))
+                .flatMap { ServerResponse.ok().build() }
         }
     }
 }
