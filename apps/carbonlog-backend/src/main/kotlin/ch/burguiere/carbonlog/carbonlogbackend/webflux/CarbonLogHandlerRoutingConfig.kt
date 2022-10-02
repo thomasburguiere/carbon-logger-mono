@@ -25,9 +25,14 @@ class CarbonLogHandlerRoutingConfig(private val carbonLogRepository: CarbonLogRe
                 .flatMap { ServerResponse.ok().build() }
         }
         POST("/carbon-logs/measurements/{co2Kg}") { request ->
-            val co2Kg = request.pathVariable("co2Kg").toDouble()
-            carbonLogRepository.insertMeasurement(CarbonMeasurement(co2Kg, Instant.now()))
-                .flatMap { ServerResponse.ok().build() }
+            try {
+                request.pathVariable("co2Kg").toDouble().let {
+                    carbonLogRepository.insertMeasurement(CarbonMeasurement(it, Instant.now()))
+                        .flatMap { ServerResponse.ok().build() }
+                }
+            } catch (e: NumberFormatException) {
+                ServerResponse.badRequest().build()
+            }
         }
     }
 }
