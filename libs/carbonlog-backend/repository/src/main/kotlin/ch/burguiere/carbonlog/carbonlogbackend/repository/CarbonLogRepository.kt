@@ -24,7 +24,6 @@ class MongoCarbonLogRepository(private val collection: MongoCollection<BsonDocum
         collection.insertOne(measurement.toBson()).toMono().then()
 }
 
-
 private fun BsonDocument.parseMeasurement(): CarbonMeasurement =
     CarbonMeasurement(
         this.getDouble("co2Kg").value,
