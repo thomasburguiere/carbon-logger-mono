@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carbonlog-backend
+  labels:
+    app: carbonlog-backend
+spec:
+  selector:
+    matchLabels:
+      app: carbonlog-backend
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: carbonlog-backend
+    spec:
+      containers:
+        - name: carbonlog-backend
+          image: thomasburguiere/carbonlog-backend
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: mongourl.measurements.db-name
+              value: carbon_measurements
+            - name: mongourl.measurements.url
+              value: 'mongodb://192.168.0.10/${mongourl.measurements.db-name}'
