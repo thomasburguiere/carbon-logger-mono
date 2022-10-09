@@ -1,3 +1,5 @@
 # build & push to GCP artifact repository
-docker build . -t europe-west6-docker.pkg.dev/carbon-logger/docker-images/carbonlog-backend
-docker push europe-west6-docker.pkg.dev/carbon-logger/docker-images/carbonlog-backend
+image_name='europe-west6-docker.pkg.dev/carbon-logger/docker-images/carbonlog-backend:0.0.3'
+
+docker build . -t $image_name
+docker push $image_name

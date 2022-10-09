@@ -9,10 +9,13 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class RepoConfig(@Value("\${mongourl.measurements.url}") private val connectionString: String) {
+class RepoConfig(
+    @Value("\${mongourl.measurements.url}") private val connectionString: String,
+    @Value("\${mongourl.measurements.db-name}") private val dbName: String
+) {
 
     @Bean
-    fun mongoDatabase(): MongoDatabase = mongoClient().getDatabase("carbon_measurements")
+    fun mongoDatabase(): MongoDatabase = mongoClient().getDatabase(dbName)
 
 
     @Bean

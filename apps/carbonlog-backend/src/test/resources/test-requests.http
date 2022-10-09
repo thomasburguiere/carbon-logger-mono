@@ -1,6 +1,11 @@
 ###
-GET http://localhost:18080/carbon-logs/measurements
-
+### get measurements
+GET {{carbonlog-host}}/carbon-logs/measurements
+Authorization: Basic {{static-auth-token}}
 ###
-POST http://localhost:18080/carbon-logs/measurements/2.5
+GET {{carbonlog-host}}
+
+### add measurement
+POST {{carbonlog-host}}/carbon-logs/measurements/3.6
+Authorization: Basic {{static-auth-token}}
 

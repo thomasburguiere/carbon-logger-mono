@@ -2,7 +2,7 @@
   <configuration default="false" name="CarbonLog Backend Docker image" type="docker-deploy" factoryName="docker-image" server-name="Docker">
     <deployment type="docker-image">
       <settings>
-        <option name="imageTag" value="thomasburguiere/carbonlog-backend" />
+        <option name="imageTag" value="europe-west6-docker.pkg.dev/carbon-logger/docker-images/carbonlog-backend:0.0.2" />
         <option name="containerName" value="" />
         <option name="envVars">
           <list>
@@ -12,7 +12,7 @@
             </DockerEnvVarImpl>
             <DockerEnvVarImpl>
               <option name="name" value="mongourl.measurements.url" />
-              <option name="value" value="mongodb://host.docker.internal:27017/${mongourl.measurements.db-name}" />
+              <option name="value" value="mongodb+srv://carbon-admin:3dVantmuTdRgfw642d8QrQWZXTizhY3c@carbonlog.f1ihly8.mongodb.net/carbon_measurements" />
             </DockerEnvVarImpl>
           </list>
         </option>
