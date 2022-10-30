@@ -3,5 +3,5 @@
 .gradle
 build
 node_modules
-**/.bin
+**/**bin
 http-client.private.env.json
