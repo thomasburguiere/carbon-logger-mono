@@ -29,7 +29,6 @@ class CarbonLogTest {
     private val date4: LocalDate = LocalDate.parse("2022-01-04")
     private val date_2021: LocalDate = LocalDate.parse("2021-01-04")
 
-
     @Test
     fun `should get results when in range`() {
         // given

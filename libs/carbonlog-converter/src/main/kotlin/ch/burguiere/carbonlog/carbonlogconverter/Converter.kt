@@ -17,7 +17,6 @@ enum class CO2KgRatios(val ratio: Double) {
     ),
 }
 
-
 data class CarbonEquivalent(val co2Kg: Double) {
     companion object {
         fun ofCarKm(carKm: Double): CarbonEquivalent = CarbonEquivalent(carKm / CO2KgRatios.carKm.ratio)
@@ -73,7 +72,6 @@ data class CarbonEquivalent(val co2Kg: Double) {
 
         fun ofHouseTrashKg(houseTrashKg: Double): CarbonEquivalent =
             CarbonEquivalent(houseTrashKg / CO2KgRatios.houseTrashKg.ratio)
-
     }
 
     fun carKm(): Double {

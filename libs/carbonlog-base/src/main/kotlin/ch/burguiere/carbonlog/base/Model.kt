@@ -8,39 +8,37 @@ import java.time.ZoneId
 data class CarbonMeasurement(val co2Kg: Double, val dt: Instant) {
     companion object {
         fun of(carbonKg: Double): CarbonMeasurement {
-            return CarbonMeasurement(carbonKg, Instant.now());
+            return CarbonMeasurement(carbonKg, Instant.now())
         }
 
         fun ofCarbonEquivalent(carbonEquivalent: CarbonEquivalent): CarbonMeasurement {
-            return CarbonMeasurement(carbonEquivalent.co2Kg, Instant.now());
+            return CarbonMeasurement(carbonEquivalent.co2Kg, Instant.now())
         }
     }
 
     fun asCarbonEquivalent(): CarbonEquivalent {
-        return CarbonEquivalent(co2Kg);
+        return CarbonEquivalent(co2Kg)
     }
 }
 
-
 data class CarbonLog(val carbonMeasurements: MutableList<CarbonMeasurement>) {
     fun add(measurement: CarbonMeasurement) {
-        this.carbonMeasurements.add(measurement);
+        this.carbonMeasurements.add(measurement)
     }
 
     fun addMultiple(measurements: List<CarbonMeasurement>) {
-        this.carbonMeasurements.addAll(measurements);
+        this.carbonMeasurements.addAll(measurements)
     }
-
 
     fun getRangeCarbonKgs(from: Instant, to: Instant = Instant.now(), inclusive: Boolean = false): Double {
         val filter: (cm: CarbonMeasurement) -> Boolean = if (!inclusive) {
-            { cm: CarbonMeasurement -> cm.dt > from && cm.dt < to };
+            { cm: CarbonMeasurement -> cm.dt > from && cm.dt < to }
         } else {
-            { cm: CarbonMeasurement -> cm.dt in from..to };
+            { cm: CarbonMeasurement -> cm.dt in from..to }
         }
 
-        val filtered = this.carbonMeasurements.filter(filter);
-        return filtered.sumCO2Kgs();
+        val filtered = this.carbonMeasurements.filter(filter)
+        return filtered.sumCO2Kgs()
     }
 
     fun getTotalCarbonKgs(): Double = carbonMeasurements.sumCO2Kgs()
