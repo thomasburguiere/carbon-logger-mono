@@ -14,7 +14,8 @@
       "executor": "@jnxplus/nx-boot-gradle:build-image"
     },
     "serve": {
-      "executor": "@jnxplus/nx-boot-gradle:serve"
+      "executor": "@jnxplus/nx-boot-gradle:serve",
+      "options": {"args": "--spring.profiles.active=local --server.port=18080"}
     },
     "lint": {
       "executor": "@jnxplus/nx-boot-gradle:lint",

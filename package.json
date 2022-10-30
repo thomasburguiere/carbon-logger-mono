@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "carbon": "nx run-many --target=serve --projects=carbonlog-frontend,carbonlog-backend"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "~14.2.0",
     "@angular-eslint/eslint-plugin": "~14.0.4",

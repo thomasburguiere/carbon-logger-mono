@@ -4,6 +4,7 @@
 build
 node_modules
 **/**bin
+**/**dist
 http-client.private.env.json
 
 .angular
