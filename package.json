@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@jnxplus/nx-boot-gradle": "^2.5.1",
-    "nx": "^14.8.2"
+    "nx": "15.0.4"
   }
 }
+
