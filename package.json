@@ -11,6 +11,7 @@
     "@angular/compiler-cli": "~14.2.0",
     "@angular/language-service": "~14.2.0",
     "@jnxplus/nx-boot-gradle": "^2.5.1",
+    "@ngxs/devtools-plugin": "^3.7.5",
     "@nrwl/angular": "15.0.5",
     "@nrwl/cypress": "15.0.5",
     "@nrwl/eslint-plugin-nx": "15.0.5",
@@ -41,9 +42,9 @@
     "@angular/platform-browser": "~14.2.0",
     "@angular/platform-browser-dynamic": "~14.2.0",
     "@angular/router": "~14.2.0",
+    "@ngxs/store": "^3.7.5",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   }
 }
-

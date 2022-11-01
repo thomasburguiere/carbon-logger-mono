@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MeasurementsComponent } from './measurements.component';
+import { CarbonlogFrontendLibModule } from '../carbonlog-frontend-lib.module';
 
 describe('MeasurementsComponent', () => {
   let component: MeasurementsComponent;
@@ -8,6 +9,7 @@ describe('MeasurementsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [CarbonlogFrontendLibModule],
       declarations: [ MeasurementsComponent ]
     })
     .compileComponents();

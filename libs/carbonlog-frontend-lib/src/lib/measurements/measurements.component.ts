@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {MeasurementDto, MeasurementService} from '../measurementService';
+import {MeasurementDto} from '../measurementService';
+import {Store} from '@ngxs/store';
+import {FetchMeasurements} from '../store/actions';
 
 @Component({
     selector: 'app-measurements',
@@ -11,12 +13,13 @@ import {MeasurementDto, MeasurementService} from '../measurementService';
     styles: [],
 })
 export class MeasurementsComponent implements OnInit {
-    constructor(private readonly measurementService: MeasurementService) {
+    measurements$?: Observable<MeasurementDto[]>;
+
+    constructor(private store: Store) {
+        this.measurements$ = this.store.select((state) => state.measurements.values);
     }
 
-    @Input() measurements$?: Observable<MeasurementDto[]>;
-
     ngOnInit(): void {
-        this.measurements$ = this.measurementService.getMeasurements();
+        this.store.dispatch(new FetchMeasurements());
     }
 }
