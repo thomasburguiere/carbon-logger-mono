@@ -18,7 +18,7 @@ import java.time.Instant
 @Configuration
 class CarbonLogHandlerRoutingConfig(
     private val carbonLogRepository: CarbonLogRepository,
-    @Value("\${static.auth.token}")private val staticToken: String
+    @Value("\${static.auth.token}") private val staticToken: String,
 ) {
     @Bean
     fun configureRouting(): RouterFunction<ServerResponse> = router {
@@ -55,15 +55,14 @@ class CarbonLogHandlerRoutingConfig(
         }
     }
 
-    private fun ServerRequest.whenAuth(authedRequestHandler: (ServerRequest) -> Mono<ServerResponse>): Mono<ServerResponse> {
-        val isAuthed = headers().header("Authorization")
-            .find { it.startsWith("Basic") }
-            ?.split("Basic ")
-            ?.getOrNull(1)?.let { it == staticToken } ?: false
-
-        return when (isAuthed) {
+    private fun ServerRequest.whenAuth(authedRequestHandler: (ServerRequest) -> Mono<ServerResponse>): Mono<ServerResponse> =
+        when (isAuthed()) {
             true -> authedRequestHandler(this)
             else -> ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
         }
-    }
+
+    private fun ServerRequest.isAuthed(): Boolean = headers().header("Authorization")
+        .find { it.startsWith("Basic") }
+        ?.split("Basic ")
+        ?.getOrNull(1)?.let { it == staticToken } ?: false
 }
