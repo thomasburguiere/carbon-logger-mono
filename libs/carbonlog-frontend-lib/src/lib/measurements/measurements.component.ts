@@ -4,16 +4,19 @@ import {MeasurementDto, MeasurementService} from '../measurementService';
 
 @Component({
     selector: 'app-measurements',
-    template: ` <app-measurements-view [measurements]="(measurements$ | async)!"></app-measurements-view> `,
+    template: `
+        Measurements:<br>
+        <li *ngFor="let measurement of measurements$ | async">{{measurement.co2Kg}} co2Kg - {{measurement.dt}}</li>
+    `,
     styles: [],
 })
-export class MeasurementsComponent implements OnInit{
+export class MeasurementsComponent implements OnInit {
     constructor(private readonly measurementService: MeasurementService) {
     }
 
     @Input() measurements$?: Observable<MeasurementDto[]>;
 
     ngOnInit(): void {
-        this.measurements$ = this.measurementService.getMeasurements()
+        this.measurements$ = this.measurementService.getMeasurements();
     }
 }
