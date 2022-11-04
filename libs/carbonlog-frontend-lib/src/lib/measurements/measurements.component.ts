@@ -6,12 +6,12 @@ import {FetchMeasurements} from '../store/actions';
 import {emptyTableInput, TableInput} from "./table.component";
 
 @Component({
-    selector: 'app-measurements',
+    selector: 'crb-measurements',
     template: `
         <h1 class="text-3xl font-bold underline">
             Measurements:
         </h1>
-        <app-table [tableInput]="measurements$ | async | toTableInput"></app-table>
+        <crb-table [tableInput]="measurements$ | async | toTableInput"></crb-table>
     `,
     styles: [],
 })

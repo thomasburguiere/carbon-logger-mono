@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 
 @Component({
-    selector: 'app-root',
+    selector: 'crb-root',
     template: `
-        <app-measurements></app-measurements>`,
+        <crb-measurements></crb-measurements>`,
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {

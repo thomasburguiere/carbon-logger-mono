@@ -16,9 +16,9 @@ export const emptyTableInput: TableInput = {
 };
 
 @Component({
-    selector: 'app-table',
+    selector: 'crb-table',
     template: `
-        <div *ngIf="tableInput" class="overflow-x-auto relative">
+        <div *ngIf="tableInput && tableInput.rows.length > 0" class="overflow-x-auto relative">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
