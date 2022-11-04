@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="carbon all atlas" type="CompoundRunConfigurationType">
+    <toRun name="carbonlog-frontend:serve:development" type="js.build_tools.nx" />
+    <toRun name="CarbonlogBackendApplication atlas" type="SpringBootApplicationConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
