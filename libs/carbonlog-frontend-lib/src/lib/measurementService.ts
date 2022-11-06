@@ -10,9 +10,19 @@ export class MeasurementService {
     constructor(private readonly http: HttpClient) {
     }
 
+    private token = 'mMLJYyyeDqZiK7sz6WtJsiiBYne8hd2U';
+
+    private apiUrl = 'http://localhost:18080';
+
     getMeasurements(): Observable<MeasurementDto[]> {
-        return this.http.get<MeasurementDto[]>('http://localhost:18080/carbon-logs/measurements', {
-            headers: {'Authorization': 'Basic mMLJYyyeDqZiK7sz6WtJsiiBYne8hd2U'}
+        return this.http.get<MeasurementDto[]>(`${this.apiUrl}/carbon-logs/measurements`, {
+            headers: {'Authorization': `Basic ${this.token}`}
+        });
+    }
+
+    saveMeasurement(co2Kg: number) {
+        return this.http.post(`${this.apiUrl}/carbon-logs/measurements/${co2Kg}`, undefined, {
+            headers: {'Authorization': `Basic ${this.token}`}
         });
     }
 }

@@ -1,23 +1,25 @@
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {MeasurementsComponent, TableInputPipe} from './measurements/measurements.component';
+import {MeasurementsListComponent, TableInputPipe} from './measurements/measurements-list.component';
 import {NgxsModule} from "@ngxs/store";
 import {MeasurementsState} from "./store/state";
 import {MeasurementService} from "./measurementService";
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
-import {TableComponent} from "./measurements/table.component";
+import {SharedUiModule} from "@carbonlog/shared-ui";
+import {SaveMeasurementComponent} from './measurements/save-measurement.component';
 
 @NgModule({
     imports: [
         HttpClientModule,
         CommonModule,
+        SharedUiModule,
         NgxsReduxDevtoolsPluginModule.forRoot(),
         NgxsModule.forRoot([MeasurementsState]),
     ],
-    declarations: [MeasurementsComponent, TableComponent, TableInputPipe],
+    declarations: [MeasurementsListComponent, TableInputPipe, SaveMeasurementComponent],
     providers: [MeasurementService, MeasurementsState],
-    exports: [MeasurementsComponent, TableComponent, TableInputPipe],
+    exports: [MeasurementsListComponent, TableInputPipe, SaveMeasurementComponent],
 })
 export class CarbonlogFrontendLibModule {
 }

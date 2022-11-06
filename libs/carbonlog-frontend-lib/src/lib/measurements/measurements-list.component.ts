@@ -3,10 +3,10 @@ import {map, Observable} from 'rxjs';
 import {MeasurementDto} from '../measurementService';
 import {Store} from '@ngxs/store';
 import {FetchMeasurements} from '../store/actions';
-import {emptyTableInput, TableInput} from "./table.component";
+import {emptyTableInput, TableInput} from "@carbonlog/shared-ui";
 
 @Component({
-    selector: 'crb-measurements',
+    selector: 'crb-measurements-list',
     template: `
         <h1 class="text-3xl font-bold underline">
             Measurements:
@@ -15,7 +15,7 @@ import {emptyTableInput, TableInput} from "./table.component";
     `,
     styles: [],
 })
-export class MeasurementsComponent implements OnInit {
+export class MeasurementsListComponent implements OnInit {
     measurements$: Observable<MeasurementDto[]>;
 
     constructor(private store: Store) {

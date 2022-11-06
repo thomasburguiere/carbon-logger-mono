@@ -1,7 +1,7 @@
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
-import {FetchMeasurements} from "./actions";
-import {tap} from "rxjs";
+import {FetchMeasurements, SaveMeasurement} from "./actions";
+import {mergeMap, tap} from "rxjs";
 import {MeasurementDto, MeasurementService} from '../measurementService';
 
 export interface MeasurementsStateModel {
@@ -28,6 +28,21 @@ export class MeasurementsState {
                 });
             })
         );
+    }
+
+    @Action(SaveMeasurement)
+    saveMeasurement(ctx: StateContext<MeasurementsStateModel>, action: SaveMeasurement) {
+        return this.measurementsService.saveMeasurement(action.co2Kg)
+            .pipe(
+                mergeMap(() => this.measurementsService.getMeasurements()),
+                tap((measurements: MeasurementDto[]) => {
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        values: measurements
+                    });
+                })
+            );
     }
 
 }

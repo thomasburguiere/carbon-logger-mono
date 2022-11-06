@@ -1,4 +1,4 @@
-import {TableComponent} from '@carbonlog/carbonlog-frontend-lib';
+import {TableComponent} from '@carbonlog/shared-ui';
 import {Meta, moduleMetadata, Story} from "@storybook/angular";
 
 export default {

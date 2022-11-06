@@ -20,6 +20,9 @@
     "paths": {
       "@carbonlog/carbonlog-frontend-lib": [
         "libs/carbonlog-frontend-lib/src/index.ts"
+      ],
+      "@carbonlog/shared-ui": [
+        "libs/shared-ui/src/index.ts"
       ]
     }
   },
