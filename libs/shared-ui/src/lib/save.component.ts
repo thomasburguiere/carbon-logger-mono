@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 
 @Component({
-    selector: 'crb-save',
+    selector: "crb-save",
     template: `
         <form>
             <label for="default-search"
@@ -29,8 +29,8 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
     `,
 })
 export class SaveComponent {
-    @Input() placeholder = '';
-    @Input() initialValue = '';
+    @Input() placeholder = "";
+    @Input() initialValue = "";
 
     @Output() valueChanged = new EventEmitter<string>;
 

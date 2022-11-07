@@ -3,7 +3,7 @@ import {Meta, moduleMetadata, Story} from "@storybook/angular";
 
 
 export default {
-    title: 'SaveComponent',
+    title: "SaveComponent",
     component: SaveComponent,
     decorators: [
         moduleMetadata({
@@ -11,7 +11,7 @@ export default {
         })
     ],
     argTypes: {
-        valueChanged: {action: 'value saved'}
+        valueChanged: {action: "value saved"}
     }
 } as Meta<SaveComponent>;
 
@@ -21,6 +21,6 @@ const Template: Story<SaveComponent> = (args: SaveComponent) => ({
 
 export const Primary = Template.bind({});
 Primary.args = {
-    initialValue: '1.2',
-    placeholder: '2.3'
+    initialValue: "1.2",
+    placeholder: "2.3"
 };

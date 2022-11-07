@@ -1,8 +1,8 @@
-import {TableComponent} from '@carbonlog/shared-ui';
+import {TableComponent} from "@carbonlog/shared-ui";
 import {Meta, moduleMetadata, Story} from "@storybook/angular";
 
 export default {
-    title: 'TableComponent',
+    title: "TableComponent",
     component: TableComponent,
     decorators: [
         moduleMetadata({
@@ -18,7 +18,7 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
 export const Primary = Template.bind({});
 Primary.args = {
     tableInput: {
-        headers: ['CO2 KGs', 'Date'],
+        headers: ["CO2 KGs", "Date"],
         rows: [{
             header: 2.3,
             remainingCells: [new Date()]

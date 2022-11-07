@@ -1,13 +1,13 @@
-import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
-import {NgModule} from '@angular/core';
-import {MeasurementsListComponent, TableInputPipe} from './measurements/measurements-list.component';
+import {CommonModule} from "@angular/common";
+import {HttpClientModule} from "@angular/common/http";
+import {NgModule} from "@angular/core";
+import {MeasurementsListComponent, TableInputPipe} from "./measurements/measurements-list.component";
 import {NgxsModule} from "@ngxs/store";
 import {MeasurementsState} from "./store/state";
 import {MeasurementService} from "./measurementService";
-import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import {SharedUiModule} from "@carbonlog/shared-ui";
-import {SaveMeasurementComponent} from './measurements/save-measurement.component';
+import {SaveMeasurementComponent} from "./measurements/save-measurement.component";
 
 @NgModule({
     imports: [

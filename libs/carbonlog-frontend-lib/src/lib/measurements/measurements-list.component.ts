@@ -1,12 +1,12 @@
-import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {map, Observable} from 'rxjs';
-import {MeasurementDto} from '../measurementService';
-import {Store} from '@ngxs/store';
-import {FetchMeasurements} from '../store/actions';
+import {Component, OnInit, Pipe, PipeTransform} from "@angular/core";
+import {map, Observable} from "rxjs";
+import {MeasurementDto} from "../measurementService";
+import {Store} from "@ngxs/store";
+import {FetchMeasurements} from "../store/actions";
 import {emptyTableInput, TableInput} from "@carbonlog/shared-ui";
 
 @Component({
-    selector: 'crb-measurements-list',
+    selector: "crb-measurements-list",
     template: `
         <h1 class="text-3xl font-bold underline">
             Measurements:
@@ -27,14 +27,14 @@ export class MeasurementsListComponent implements OnInit {
     }
 }
 
-@Pipe({name: 'toTableInput'})
+@Pipe({name: "toTableInput"})
 export class TableInputPipe implements PipeTransform {
     transform(measurements: MeasurementDto[] | null): TableInput {
         if (!measurements) {
             return emptyTableInput;
         }
         return {
-            headers: ['CO2 Kgs', 'Date'],
+            headers: ["CO2 Kgs", "Date"],
             rows: measurements?.map(m => ({header: m.co2Kg, remainingCells: [m.dt]}))
         };
     }

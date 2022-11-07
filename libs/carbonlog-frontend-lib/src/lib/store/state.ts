@@ -2,14 +2,14 @@ import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {FetchMeasurements, SaveMeasurement} from "./actions";
 import {mergeMap, tap} from "rxjs";
-import {MeasurementDto, MeasurementService} from '../measurementService';
+import {MeasurementDto, MeasurementService} from "../measurementService";
 
 export interface MeasurementsStateModel {
     values: MeasurementDto[];
 }
 
 @State<MeasurementsStateModel>({
-    name: 'measurements',
+    name: "measurements",
     defaults: {values: []}
 })
 @Injectable()
