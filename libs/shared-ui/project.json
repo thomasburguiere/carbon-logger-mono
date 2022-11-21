@@ -11,8 +11,7 @@
         "{workspaceRoot}/dist/{projectRoot}"
       ],
       "options": {
-        "project": "libs/shared-ui/ng-package.json",
-        "tailwindConfig": "libs/shared-ui/tailwind.config.js"
+        "project": "libs/shared-ui/ng-package.json"
       },
       "configurations": {
         "production": {
