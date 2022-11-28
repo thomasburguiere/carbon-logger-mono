@@ -32,7 +32,7 @@ export class MeasurementsState {
 
     @Action(SaveMeasurement)
     saveMeasurement(ctx: StateContext<MeasurementsStateModel>, action: SaveMeasurement) {
-        return this.measurementsService.saveMeasurement(action.co2Kg)
+        return this.measurementsService.saveMeasurementCo2Kg(action.co2Kg)
             .pipe(
                 mergeMap(() => this.measurementsService.getMeasurements()),
                 tap((measurements: MeasurementDto[]) => {

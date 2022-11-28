@@ -5,7 +5,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-data class CarbonMeasurement(val co2Kg: Double, val dt: Instant) {
+data class CarbonMeasurement(val co2Kg: Double, val dt: Instant, val inputDescription: String? = null) {
     companion object {
         fun of(carbonKg: Double): CarbonMeasurement {
             return CarbonMeasurement(carbonKg, Instant.now())

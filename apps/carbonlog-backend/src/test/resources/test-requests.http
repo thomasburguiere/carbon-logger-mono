@@ -2,6 +2,7 @@
 ### get measurements
 GET {{carbonlog-host}}/carbon-logs/measurements
 Authorization: Basic {{static-auth-token}}
+
 ###
 GET {{carbonlog-host}}
 
@@ -9,3 +10,13 @@ GET {{carbonlog-host}}
 POST {{carbonlog-host}}/carbon-logs/measurements/3.6
 Authorization: Basic {{static-auth-token}}
 
+### add measurement
+POST {{carbonlog-host}}/carbon-logs/measurements
+Content-Type: application/json
+Authorization: Basic {{static-auth-token}}
+
+{
+  "co2Kg": 6.42,
+  "dt": "2022-11-27T11:00:01.759Z",
+  "inputDescription": "kurwa"
+}

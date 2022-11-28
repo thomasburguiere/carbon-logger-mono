@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
-    providedIn: "root"
+    providedIn: "root",
 })
 export class MeasurementService {
 
@@ -16,13 +16,19 @@ export class MeasurementService {
 
     getMeasurements(): Observable<MeasurementDto[]> {
         return this.http.get<MeasurementDto[]>(`${this.apiUrl}/carbon-logs/measurements`, {
-            headers: {"Authorization": `Basic ${this.token}`}
+            headers: {"Authorization": `Basic ${this.token}`},
         });
     }
 
-    saveMeasurement(co2Kg: number) {
+    saveMeasurementCo2Kg(co2Kg: number) {
         return this.http.post(`${this.apiUrl}/carbon-logs/measurements/${co2Kg}`, undefined, {
-            headers: {"Authorization": `Basic ${this.token}`}
+            headers: {"Authorization": `Basic ${this.token}`},
+        });
+    }
+
+    saveMeasurement(dto: MeasurementDto) {
+        return this.http.post(`${this.apiUrl}/carbon-logs/measurements`, dto, {
+            headers: {"Authorization": `Basic ${this.token}`},
         });
     }
 }
@@ -30,4 +36,5 @@ export class MeasurementService {
 export interface MeasurementDto {
     co2Kg: number;
     dt: string;
+    inputDescription?: string;
 }
