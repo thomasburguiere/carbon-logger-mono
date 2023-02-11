@@ -15,5 +15,13 @@ node_modules
 
 .angular
 
+# Terraform
+**/tfplan.out
+**/.terraform
+**/.terraform.lock.hcl
+terraform/.terraform
+**/terraform.tfstate
+**/terraform.tfstate.backup
+
 # secrets
 apps/carbonlog-backend/src/main/resources/application-mongo-atlas.properties
