@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CarbonlogBackendApplication docker" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="CarbonlogBackendApplication local-docker" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="local,mongo-docker" />
     <additionalParameters>
       <param>
