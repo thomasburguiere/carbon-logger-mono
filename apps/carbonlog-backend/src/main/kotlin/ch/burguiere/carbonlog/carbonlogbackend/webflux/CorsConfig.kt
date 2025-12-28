@@ -6,7 +6,7 @@ import org.springframework.web.reactive.config.CorsRegistry
 import org.springframework.web.reactive.config.WebFluxConfigurer
 
 @Configuration
-class CorsConfig(@Value("\${cors.allowed.origins}") private val allowedOrigins: List<String>) : WebFluxConfigurer {
+open class CorsConfig(@param:Value("\${cors.allowed.origins}") private val allowedOrigins: List<String>) : WebFluxConfigurer {
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
             .allowedOrigins(*(allowedOrigins.toTypedArray()))

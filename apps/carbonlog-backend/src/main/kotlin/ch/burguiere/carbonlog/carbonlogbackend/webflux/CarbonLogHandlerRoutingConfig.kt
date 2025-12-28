@@ -16,12 +16,12 @@ import reactor.kotlin.core.publisher.toMono
 import java.time.Instant
 
 @Configuration
-class CarbonLogHandlerRoutingConfig(
+open class CarbonLogHandlerRoutingConfig(
     private val carbonLogRepository: CarbonLogRepository,
-    @Value("\${static.auth.token}") private val staticToken: String,
+    @param:Value("\${static.auth.token}") private val staticToken: String,
 ) {
     @Bean
-    fun configureRouting(): RouterFunction<ServerResponse> = router {
+    open fun configureRouting(): RouterFunction<ServerResponse> = router {
 
         GET("/") {
             ServerResponse.ok().bodyValue("CarbonLogBackend is running").toMono()

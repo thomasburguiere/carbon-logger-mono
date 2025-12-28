@@ -9,21 +9,21 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class RepoConfig(
-    @Value("\${mongourl.measurements.url}") private val connectionString: String,
-    @Value("\${mongourl.measurements.db-name}") private val dbName: String
+open class RepoConfig(
+    @param:Value("\${mongourl.measurements.url}") private val connectionString: String,
+    @param:Value("\${mongourl.measurements.db-name}") private val dbName: String
 ) {
 
     @Bean
-    fun mongoDatabase(): MongoDatabase = mongoClient().getDatabase(dbName)
+    open fun mongoDatabase(): MongoDatabase = mongoClient().getDatabase(dbName)
 
 
     @Bean
-    fun mongoClient(): MongoClient = MongoClients.create(connectionString)
+    open fun mongoClient(): MongoClient = MongoClients.create(connectionString)
 
 
     @Bean
-    fun carbonLogRepository(): CarbonLogRepository =
+    open fun carbonLogRepository(): CarbonLogRepository =
         MongoCarbonLogRepository(mongoDatabase().getCollection("Measurements", BsonDocument::class.java))
 
 }
