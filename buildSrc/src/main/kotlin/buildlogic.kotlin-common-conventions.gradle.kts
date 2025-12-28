@@ -3,7 +3,7 @@
  */
 
 
-val springCoreVersion: String  = "7.0.0"
+val springCoreVersion: String  = "7.0.2"
 val springBootVersion: String = "4.0.1"
 
 plugins {
