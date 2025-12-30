@@ -1,20 +1,8 @@
 package ch.burguiere.carbonlog.base
 
-import ch.burguiere.carbonlog.carbonlogconverter.CarbonEquivalent
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-
-data class CarbonMeasurement(val co2Kg: Double, val dt: Instant, val inputDescription: String? = null) {
-    companion object {
-        fun of(carbonKg: Double): CarbonMeasurement = CarbonMeasurement(carbonKg, Instant.now())
-
-        fun ofCarbonEquivalent(carbonEquivalent: CarbonEquivalent): CarbonMeasurement =
-            CarbonMeasurement(carbonEquivalent.co2Kg, Instant.now())
-    }
-
-    fun asCarbonEquivalent(): CarbonEquivalent = CarbonEquivalent(co2Kg)
-}
 
 data class CarbonLog(val carbonMeasurements: List<CarbonMeasurement>) {
     fun copyAdding(measurement: CarbonMeasurement) = copyAddingMultiple(measurements = listOf(measurement))
@@ -40,7 +28,8 @@ data class CarbonLog(val carbonMeasurements: List<CarbonMeasurement>) {
         .sumCO2Kgs()
 }
 
-private fun CarbonMeasurement.getYear(): Int = LocalDate.ofInstant(this.dt, ZoneId.of("UTC")).year
+private fun CarbonMeasurement.getYear(timezoneId: ZoneId = ZoneId.of("UTC")): Int =
+    LocalDate.ofInstant(this.dt, ZoneId.of("UTC")).year
 
 private fun List<CarbonMeasurement>.sumCO2Kgs(): Double =
     when {
