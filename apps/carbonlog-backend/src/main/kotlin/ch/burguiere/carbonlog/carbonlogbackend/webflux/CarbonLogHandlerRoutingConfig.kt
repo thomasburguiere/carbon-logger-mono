@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.bodyToMono
 import org.springframework.web.reactive.function.server.router
 import reactor.core.publisher.Mono
 import reactor.kotlin.core.publisher.toMono
@@ -36,7 +37,7 @@ open class CarbonLogHandlerRoutingConfig(
 
         POST("/carbon-logs/measurements") { request ->
             request.whenAuth {
-                request.bodyToMono(CarbonMeasurement::class.java)
+                request.bodyToMono<CarbonMeasurement>()
                     .flatMap { carbonLogRepository.insertMeasurement(it) }
                     .flatMap { ServerResponse.status(HttpStatus.CREATED).build() }
             }
@@ -48,7 +49,7 @@ open class CarbonLogHandlerRoutingConfig(
                         carbonLogRepository.insertMeasurement(CarbonMeasurement(it, Instant.now()))
                             .flatMap { ServerResponse.status(HttpStatus.CREATED).build() }
                     }
-                } catch (e: NumberFormatException) {
+                } catch (_: NumberFormatException) {
                     ServerResponse.badRequest().build()
                 }
             }

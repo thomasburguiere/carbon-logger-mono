@@ -7,28 +7,20 @@ import java.time.ZoneId
 
 data class CarbonMeasurement(val co2Kg: Double, val dt: Instant, val inputDescription: String? = null) {
     companion object {
-        fun of(carbonKg: Double): CarbonMeasurement {
-            return CarbonMeasurement(carbonKg, Instant.now())
-        }
+        fun of(carbonKg: Double): CarbonMeasurement = CarbonMeasurement(carbonKg, Instant.now())
 
-        fun ofCarbonEquivalent(carbonEquivalent: CarbonEquivalent): CarbonMeasurement {
-            return CarbonMeasurement(carbonEquivalent.co2Kg, Instant.now())
-        }
+        fun ofCarbonEquivalent(carbonEquivalent: CarbonEquivalent): CarbonMeasurement =
+            CarbonMeasurement(carbonEquivalent.co2Kg, Instant.now())
     }
 
-    fun asCarbonEquivalent(): CarbonEquivalent {
-        return CarbonEquivalent(co2Kg)
-    }
+    fun asCarbonEquivalent(): CarbonEquivalent = CarbonEquivalent(co2Kg)
 }
 
-data class CarbonLog(val carbonMeasurements: MutableList<CarbonMeasurement>) {
-    fun add(measurement: CarbonMeasurement) {
-        this.carbonMeasurements.add(measurement)
-    }
+data class CarbonLog(val carbonMeasurements: List<CarbonMeasurement>) {
+    fun copyAdding(measurement: CarbonMeasurement) = copyAddingMultiple(measurements = listOf(measurement))
 
-    fun addMultiple(measurements: List<CarbonMeasurement>) {
-        this.carbonMeasurements.addAll(measurements)
-    }
+    fun copyAddingMultiple(measurements: List<CarbonMeasurement>): CarbonLog =
+        CarbonLog(carbonMeasurements = this.carbonMeasurements + measurements)
 
     fun getRangeCarbonKgs(from: Instant, to: Instant = Instant.now(), inclusive: Boolean = false): Double {
         val filter: (cm: CarbonMeasurement) -> Boolean = if (!inclusive) {
@@ -43,7 +35,6 @@ data class CarbonLog(val carbonMeasurements: MutableList<CarbonMeasurement>) {
 
     fun getTotalCarbonKgs(): Double = carbonMeasurements.sumCO2Kgs()
 
-    //
     fun getCurrentYearCarbonKgs(): Double = carbonMeasurements
         .filter { cm: CarbonMeasurement -> cm.getYear() == LocalDate.now().year }
         .sumCO2Kgs()
@@ -52,8 +43,8 @@ data class CarbonLog(val carbonMeasurements: MutableList<CarbonMeasurement>) {
 private fun CarbonMeasurement.getYear(): Int = LocalDate.ofInstant(this.dt, ZoneId.of("UTC")).year
 
 private fun List<CarbonMeasurement>.sumCO2Kgs(): Double =
-    when (this.isEmpty()) {
-        true -> 0.0
+    when {
+        this.isEmpty() -> 0.0
         else -> this.map { cm -> cm.co2Kg }
             .reduce { acc, next -> acc + next }
     }

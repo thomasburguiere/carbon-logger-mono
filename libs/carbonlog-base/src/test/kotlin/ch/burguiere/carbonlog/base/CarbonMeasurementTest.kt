@@ -34,7 +34,7 @@ class CarbonLogTest {
         // given
         val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
         val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val log = CarbonLog(mutableListOf(cm2, cm3))
+        val log = CarbonLog(listOf(cm2, cm3))
 
         // when
         val result = log.getRangeCarbonKgs(
@@ -51,11 +51,11 @@ class CarbonLogTest {
         // given
         val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
         val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val log = CarbonLog(mutableListOf(cm2, cm3))
+        var log = CarbonLog(listOf(cm2, cm3))
 
         val addedCm = CarbonMeasurement(11.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
 
-        log.add(addedCm)
+        log = log.copyAdding(addedCm)
 
         // when
         val result = log.getRangeCarbonKgs(
@@ -72,7 +72,7 @@ class CarbonLogTest {
         // given
         val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
         val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val log = CarbonLog(mutableListOf(cm2, cm3))
+        val log = CarbonLog(listOf(cm2, cm3))
 
         // when
         val result = log.getRangeCarbonKgs(
@@ -89,7 +89,7 @@ class CarbonLogTest {
         // given
         val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
         val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val log = CarbonLog(mutableListOf(cm2, cm3))
+        val log = CarbonLog(listOf(cm2, cm3))
 
         // when
         val result = log.getRangeCarbonKgs(
@@ -106,7 +106,7 @@ class CarbonLogTest {
         // given
         val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
         val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val log = CarbonLog(mutableListOf(cm2, cm3))
+        val log = CarbonLog(listOf(cm2, cm3))
 
         // when
         val result = log.getRangeCarbonKgs(
@@ -125,7 +125,7 @@ class CarbonLogTest {
         val todayDate = Instant.now()
         val cm2 = CarbonMeasurement(2.0, todayDate)
         val cm3 = CarbonMeasurement(3.0, date_2021.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val log = CarbonLog(mutableListOf(cm2, cm3))
+        val log = CarbonLog(listOf(cm2, cm3))
 
         // when
         val result = log.getCurrentYearCarbonKgs()
