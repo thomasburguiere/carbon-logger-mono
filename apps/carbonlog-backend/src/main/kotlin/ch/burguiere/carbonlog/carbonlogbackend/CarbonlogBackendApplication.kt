@@ -1,10 +1,9 @@
 package ch.burguiere.carbonlog.carbonlogbackend
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
-//import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
 import org.springframework.boot.runApplication
 
-@SpringBootApplication(scanBasePackages = arrayOf("ch.burguiere.carbonlog"))
+@SpringBootApplication(scanBasePackages = ["ch.burguiere.carbonlog"])
 open class CarbonlogBackendApplication
 
 fun main(args: Array<String>) {
