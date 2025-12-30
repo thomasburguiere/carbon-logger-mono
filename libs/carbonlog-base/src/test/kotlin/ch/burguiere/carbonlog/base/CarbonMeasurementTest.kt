@@ -1,9 +1,11 @@
 package ch.burguiere.carbonlog.base
 
+import ch.burguiere.carbonlog.base.CarbonMeasurement.Companion.ofCarbonEquivalent
 import ch.burguiere.carbonlog.carbonlogconverter.CarbonEquivalent
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.data.Offset
+import org.assertj.core.data.Offset.offset
 import org.junit.jupiter.api.Test
 import java.time.Instant
 import java.time.LocalDate
@@ -15,9 +17,11 @@ class CarbonMeasurementTest {
 
         var ms = CarbonMeasurement.of(0.0)
 
-        Assertions.assertThat(ms.co2Kg).isEqualTo(0.0)
+        assertThat(ms.co2Kg).isEqualTo(0.0)
 
-        ms = CarbonMeasurement.ofCarbonEquivalent(CarbonEquivalent.ofPlaneKm(2000.0))
-        Assertions.assertThat(ms.co2Kg).isCloseTo(371.75, Offset.offset(0.01))
+        ms = ofCarbonEquivalent(CarbonEquivalent.ofPlaneKm(2000.0))
+        assertThat(ms.co2Kg).isCloseTo(371.75, offset(0.01))
+
+        assertThat(ms.asCarbonEquivalent().planeKm()).isCloseTo(2000.0, offset(0.01))
     }
 }
