@@ -74,75 +74,39 @@ data class CarbonEquivalent(val co2Kg: Double) {
             CarbonEquivalent(houseTrashKg / CO2KgRatios.houseTrashKg.ratio)
     }
 
-    fun carKm(): Double {
-        return this.co2Kg * CO2KgRatios.carKm.ratio
-    }
+    fun carKm(): Double = this.co2Kg * CO2KgRatios.carKm.ratio
 
-    fun planeKm(): Double {
-        return this.co2Kg * CO2KgRatios.planeKm.ratio
-    }
+    fun planeKm(): Double = this.co2Kg * CO2KgRatios.planeKm.ratio
 
-    fun trainKm(): Double {
-        return this.co2Kg * CO2KgRatios.trainKm.ratio
-    }
+    fun trainKm(): Double = this.co2Kg * CO2KgRatios.trainKm.ratio
 
-    fun beefMeal(): Double {
-        return this.co2Kg * CO2KgRatios.beefMeal.ratio
-    }
+    fun beefMeal(): Double = this.co2Kg * CO2KgRatios.beefMeal.ratio
 
-    fun chickenMeal(): Double {
-        return this.co2Kg * CO2KgRatios.chickenMeal.ratio
-    }
+    fun chickenMeal(): Double = this.co2Kg * CO2KgRatios.chickenMeal.ratio
 
-    fun chickenKg(): Double {
-        return this.co2Kg * CO2KgRatios.chickenKg.ratio
-    }
+    fun chickenKg(): Double = this.co2Kg * CO2KgRatios.chickenKg.ratio
 
-    fun eggsKg(): Double {
-        return this.co2Kg * CO2KgRatios.eggsKg.ratio
-    }
+    fun eggsKg(): Double = this.co2Kg * CO2KgRatios.eggsKg.ratio
 
-    fun veggieMeal(): Double {
-        return this.co2Kg * CO2KgRatios.veggieMeal.ratio
-    }
+    fun veggieMeal(): Double = this.co2Kg * CO2KgRatios.veggieMeal.ratio
 
-    fun smartPhone(): Double {
-        return this.co2Kg * CO2KgRatios.smartPhone.ratio
-    }
+    fun smartPhone(): Double = this.co2Kg * CO2KgRatios.smartPhone.ratio
 
-    fun laptop(): Double {
-        return this.co2Kg * CO2KgRatios.laptop.ratio
-    }
+    fun laptop(): Double = this.co2Kg * CO2KgRatios.laptop.ratio
 
-    fun computer24InchScreen(): Double {
-        return this.co2Kg * CO2KgRatios.computer24InchScreen.ratio
-    }
+    fun computer24InchScreen(): Double = this.co2Kg * CO2KgRatios.computer24InchScreen.ratio
 
-    fun tv45Inch(): Double {
-        return this.co2Kg * CO2KgRatios.tv45Inch.ratio
-    }
+    fun tv45Inch(): Double = this.co2Kg * CO2KgRatios.tv45Inch.ratio
 
-    fun denimPants(): Double {
-        return this.co2Kg * CO2KgRatios.denimPants.ratio
-    }
+    fun denimPants(): Double = this.co2Kg * CO2KgRatios.denimPants.ratio
 
-    fun pocketBook(): Double {
-        return this.co2Kg * CO2KgRatios.pocketBook.ratio
-    }
+    fun pocketBook(): Double = this.co2Kg * CO2KgRatios.pocketBook.ratio
 
-    fun sofa(): Double {
-        return this.co2Kg * CO2KgRatios.sofa.ratio
-    }
+    fun sofa(): Double = this.co2Kg * CO2KgRatios.sofa.ratio
 
-    fun cottonTShirt(): Double {
-        return this.co2Kg * CO2KgRatios.cottonTShirt.ratio
-    }
+    fun cottonTShirt(): Double = this.co2Kg * CO2KgRatios.cottonTShirt.ratio
 
-    fun a4PaperSheet(): Double {
-        return this.co2Kg * CO2KgRatios.a4PaperSheet.ratio
-    }
+    fun a4PaperSheet(): Double = this.co2Kg * CO2KgRatios.a4PaperSheet.ratio
 
-    fun houseTrashKg(): Double {
-        return this.co2Kg * CO2KgRatios.houseTrashKg.ratio
-    }
+    fun houseTrashKg(): Double = this.co2Kg * CO2KgRatios.houseTrashKg.ratio
 }

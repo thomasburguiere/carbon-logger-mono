@@ -30,6 +30,7 @@ dependencies {
         testImplementation("io.projectreactor:reactor-test:3.8.1")
         testImplementation("org.springframework.security:spring-security-test:$springCoreVersion")
 
+        implementation("tools.jackson.module:jackson-module-kotlin:3.0.3")
         implementation("org.mongodb:mongodb-driver-reactivestreams:5.6.2")
 
         testImplementation("org.assertj:assertj-core:3.27.6")
