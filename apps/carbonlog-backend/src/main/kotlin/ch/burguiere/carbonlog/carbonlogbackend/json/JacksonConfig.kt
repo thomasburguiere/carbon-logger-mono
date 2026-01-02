@@ -1,4 +1,4 @@
-package ch.burguiere.carbonlog.carbonlogbackend.webflux
+package ch.burguiere.carbonlog.carbonlogbackend.json
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

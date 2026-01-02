@@ -1,5 +1,7 @@
 package ch.burguiere.carbonlog.carbonlogbackend.repository
 
+import com.mongodb.client.model.IndexOptions
+import com.mongodb.client.model.Indexes.ascending
 import com.mongodb.reactivestreams.client.MongoClient
 import com.mongodb.reactivestreams.client.MongoClients
 import com.mongodb.reactivestreams.client.MongoDatabase
@@ -7,6 +9,8 @@ import org.bson.BsonDocument
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import reactor.kotlin.core.publisher.toMono
+import java.time.Duration
 
 @Configuration
 open class RepoConfig(
@@ -23,7 +27,15 @@ open class RepoConfig(
 
 
     @Bean
-    open fun carbonLogRepository(): CarbonLogRepository =
-        MongoCarbonLogRepository(mongoDatabase().getCollection("Measurements", BsonDocument::class.java))
+    open fun carbonLogRepository(): CarbonMeasurementsRepository {
+        val collection = mongoDatabase()
+            .getCollection(MongoCarbonMeasurementsRepository.collectionName, BsonDocument::class.java)
+
+        collection.createIndex(
+            ascending(Fields.ID.name),
+            IndexOptions().background(true).unique(true)
+        ).toMono().block(Duration.ofSeconds(5))
+        return MongoCarbonMeasurementsRepository(collection)
+    }
 
 }

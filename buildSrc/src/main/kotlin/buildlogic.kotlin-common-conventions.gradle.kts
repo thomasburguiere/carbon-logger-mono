@@ -20,7 +20,7 @@ dependencies {
     constraints {
         // Define dependency versions as constraints
         implementation("org.springframework:spring-context:$springCoreVersion")
-        implementation("org.springframework:spring-test:$springCoreVersion")
+        testImplementation("org.springframework:spring-test:$springCoreVersion")
         implementation("org.springframework.boot:spring-boot-starter-webflux:$springBootVersion")
         implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.20.1")
@@ -46,6 +46,8 @@ dependencies {
     testImplementation("org.assertj:assertj-core")
 
     testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation ("org.springframework:spring-test")
+    testImplementation("io.projectreactor:reactor-test")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
