@@ -24,6 +24,6 @@ open class RepoConfig(
 
     @Bean
     open fun carbonLogRepository(): CarbonLogRepository =
-        MongoCarbonLogRepository(mongoDatabase().getCollection("Measurements", BsonDocument::class.java))
+        MongoCarbonLogRepository(mongoDatabase().getCollection(measurementsCollectionName, BsonDocument::class.java))
 
 }

@@ -35,6 +35,14 @@ open class CarbonLogHandlerRoutingConfig(
             }
         }
 
+        GET("/carbon-logs/measurements/{id}") { request ->
+            request.whenAuth {
+                val id = request.pathVariable("id")
+                carbonLogRepository.getMeasurement(id)
+                    .flatMap { ServerResponse.ok().body(BodyInserters.fromValue(it)) }
+            }
+        }
+
         POST("/carbon-logs/measurements") { request ->
             request.whenAuth {
                 request.bodyToMono<CarbonMeasurement>()

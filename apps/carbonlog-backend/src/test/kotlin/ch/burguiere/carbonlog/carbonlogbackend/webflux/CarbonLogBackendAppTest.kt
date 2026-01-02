@@ -76,18 +76,17 @@ class CarbonLogBackendAppTest {
 
         val getResponse = testClient
             .get()
-            .uri("http://localhost:$port/carbon-logs/measurements")
+            .uri("http://localhost:$port/carbon-logs/measurements/testMeasurementId")
             .header("Authorization", "Basic $dummyToken")
             .exchange()
 
         getResponse.expectStatus().is2xxSuccessful
-        val responseBody = getResponse.expectBody<List<CarbonMeasurement>>().returnResult().responseBody
+        val responseBody = getResponse.expectBody<CarbonMeasurement>().returnResult().responseBody
 
-        assertThat(responseBody).hasSize(1)
-        assertThat(responseBody?.first()?.id).isEqualTo("testMeasurementId")
-        assertThat(responseBody?.first()?.co2Kg).isEqualTo(6.66)
-        assertThat(responseBody?.first()?.inputDescription).isEqualTo("test measurement")
-        assertThat(responseBody?.first()?.dt.toString()).isEqualTo("2022-01-01T13:37:00Z")
+        assertThat(responseBody?.id).isEqualTo("testMeasurementId")
+        assertThat(responseBody?.co2Kg).isEqualTo(6.66)
+        assertThat(responseBody?.inputDescription).isEqualTo("test measurement")
+        assertThat(responseBody?.dt.toString()).isEqualTo("2022-01-01T13:37:00Z")
     }
 
     companion object {

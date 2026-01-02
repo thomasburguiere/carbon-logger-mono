@@ -1,6 +1,7 @@
 package ch.burguiere.carbonlog.carbonlogbackend.repository
 
 import ch.burguiere.carbonlog.base.CarbonMeasurement
+import com.mongodb.client.model.Filters.eq
 import com.mongodb.reactivestreams.client.MongoCollection
 import org.bson.BsonDateTime
 import org.bson.BsonDocument
@@ -16,6 +17,10 @@ class MongoCarbonLogRepository(private val collection: MongoCollection<BsonDocum
     override fun getMeasurements(): Flux<CarbonMeasurement> =
         collection.find().toFlux().map { it.parseMeasurement() }
 
+    override fun getMeasurement(id: String): Mono<CarbonMeasurement> = collection.find(eq("id", BsonString(id)))
+        .toMono()
+        .map { it.parseMeasurement() }
+
     override fun insertMeasurement(measurement: CarbonMeasurement): Mono<Void> =
         collection.insertOne(measurement.toBson()).toMono().then()
 }
@@ -25,10 +30,9 @@ private fun BsonDocument.parseMeasurement(): CarbonMeasurement =
         id = this.getString("id").value,
         co2Kg = this.getDouble("co2Kg").value,
         dt = Instant.ofEpochMilli(this.getDateTime("timestamp").value),
-        inputDescription = if (this.containsKey("inputDescription")) {
-            this.getString("inputDescription").value
-        } else {
-            null
+        inputDescription = when {
+            this.containsKey("inputDescription") -> this.getString("inputDescription").value
+            else -> null
         }
     )
 
