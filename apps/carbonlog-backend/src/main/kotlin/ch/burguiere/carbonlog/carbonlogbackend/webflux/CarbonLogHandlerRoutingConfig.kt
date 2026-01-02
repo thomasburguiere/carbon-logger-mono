@@ -68,18 +68,7 @@ open class CarbonLogHandlerRoutingConfig(
         POST("/carbon-logs/measurements") { request ->
             request.whenAuth {
                 request.bodyToMono<CarbonMeasurement>()
-                    .flatMap { measurement ->
-                        carbonMeasurementsRepository.insertMeasurement(measurement)
-                            .then(
-                                ServerResponse
-                                    .status(CREATED)
-                                    .header(
-                                        "Location",
-                                        "/carbon-logs/measurements/${measurement.id}"
-                                    )
-                                    .build()
-                            )
-                    }
+                    .flatMap { measurement -> insertMeasurementAndReturn201(measurement) }
             }
         }
         POST("/carbon-logs/measurements/{co2Kg}") { request ->
@@ -99,20 +88,23 @@ open class CarbonLogHandlerRoutingConfig(
                     co2Kg = co2Kg,
                     dt = Instant.now()
                 )
-                carbonMeasurementsRepository
-                    .insertMeasurement(measurement)
-                    .then(
-                        ServerResponse
-                            .status(CREATED)
-                            .header(
-                                "Location",
-                                "/carbon-logs/measurements/${measurement.id}"
-                            )
-                            .build()
-                    )
+                insertMeasurementAndReturn201(measurement)
             }
         }
     }
+
+    private fun insertMeasurementAndReturn201(measurement: CarbonMeasurement): Mono<ServerResponse> =
+        carbonMeasurementsRepository
+            .insertMeasurement(measurement)
+            .then(
+                ServerResponse
+                    .status(CREATED)
+                    .header(
+                        "Location",
+                        "/carbon-logs/measurements/${measurement.id}"
+                    )
+                    .build()
+            )
 
     private fun ServerRequest.whenAuth(authedRequestHandler: () -> Mono<ServerResponse>): Mono<ServerResponse> =
         when (isAuthed()) {
