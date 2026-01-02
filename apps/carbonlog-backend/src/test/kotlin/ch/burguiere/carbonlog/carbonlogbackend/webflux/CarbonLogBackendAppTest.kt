@@ -72,7 +72,8 @@ class CarbonLogBackendAppTest {
             .header("Authorization", "Basic $dummyToken")
             .exchange()
 
-        postResponse.expectStatus().is2xxSuccessful
+        postResponse.expectStatus().isEqualTo(201)
+        postResponse.expectHeader().location("/carbon-logs/measurements/testMeasurementId")
 
         val getResponse = testClient
             .get()
@@ -94,7 +95,7 @@ class CarbonLogBackendAppTest {
             .header("Authorization", "Basic $dummyToken")
             .exchange()
 
-        deleteResponse.expectStatus().is2xxSuccessful
+        deleteResponse.expectStatus().isEqualTo(204)
 
         val getAllResponse = testClient
             .get()

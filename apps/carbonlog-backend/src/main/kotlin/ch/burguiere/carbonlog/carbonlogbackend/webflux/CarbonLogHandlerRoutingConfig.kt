@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatus.CREATED
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -31,7 +32,7 @@ open class CarbonLogHandlerRoutingConfig(
         GET("/carbon-logs/measurements") { request ->
             request.whenAuth {
                 carbonMeasurementsRepository.getMeasurements().collectList()
-                    .flatMap { ServerResponse.ok().body(BodyInserters.fromValue(it)) }
+                    .then(ServerResponse.ok().body(BodyInserters.fromValue(it)))
             }
         }
 
@@ -39,7 +40,7 @@ open class CarbonLogHandlerRoutingConfig(
             request.whenAuth {
                 val id = request.pathVariable("id")
                 carbonMeasurementsRepository.getMeasurement(id)
-                    .flatMap { ServerResponse.ok().body(BodyInserters.fromValue(it)) }
+                    .then(ServerResponse.ok().body(BodyInserters.fromValue(it)))
             }
         }
 
@@ -47,24 +48,46 @@ open class CarbonLogHandlerRoutingConfig(
             request.whenAuth {
                 val id = request.pathVariable("id")
                 carbonMeasurementsRepository.deleteMeasurement(id)
-                    .flatMap { ServerResponse.ok().body(BodyInserters.fromValue(it)) }
+                    .then(ServerResponse.noContent().build())
             }
         }
 
         POST("/carbon-logs/measurements") { request ->
             request.whenAuth {
                 request.bodyToMono<CarbonMeasurement>()
-                    .flatMap { carbonMeasurementsRepository.insertMeasurement(it) }
-                    .flatMap { ServerResponse.status(HttpStatus.CREATED).build() }
+                    .flatMap { measurement ->
+                        carbonMeasurementsRepository.insertMeasurement(measurement)
+                            .then(
+                                ServerResponse
+                                    .status(CREATED)
+                                    .header(
+                                        "Location",
+                                        "/carbon-logs/measurements/${measurement.id}"
+                                    )
+                                    .build()
+                            )
+                    }
             }
         }
         POST("/carbon-logs/measurements/{co2Kg}") { request ->
             request.whenAuth {
                 try {
-                    request.pathVariable("co2Kg").toDouble().let {
-                        carbonMeasurementsRepository.insertMeasurement(CarbonMeasurement(co2Kg = it, dt = Instant.now()))
-                            .flatMap { ServerResponse.status(HttpStatus.CREATED).build() }
-                    }
+                    val co2Kg = request.pathVariable("co2Kg").toDouble()
+                    val measurement = CarbonMeasurement(
+                        co2Kg = co2Kg,
+                        dt = Instant.now()
+                    )
+                    carbonMeasurementsRepository
+                        .insertMeasurement(measurement)
+                        .then(
+                            ServerResponse
+                                .status(CREATED)
+                                .header(
+                                    "Location",
+                                    "/carbon-logs/measurements/${measurement.id}"
+                                )
+                                .build()
+                        )
                 } catch (_: NumberFormatException) {
                     ServerResponse.badRequest().build()
                 }
