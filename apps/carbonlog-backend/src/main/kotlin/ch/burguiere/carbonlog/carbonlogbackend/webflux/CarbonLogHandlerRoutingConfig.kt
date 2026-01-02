@@ -32,7 +32,11 @@ open class CarbonLogHandlerRoutingConfig(
         GET("/carbon-logs/measurements") { request ->
             request.whenAuth {
                 carbonMeasurementsRepository.getMeasurements().collectList()
-                    .then(ServerResponse.ok().body(BodyInserters.fromValue(it)))
+                    .flatMap { measurements ->
+                        ServerResponse
+                            .ok()
+                            .body(BodyInserters.fromValue(measurements))
+                    }
             }
         }
 
@@ -40,7 +44,11 @@ open class CarbonLogHandlerRoutingConfig(
             request.whenAuth {
                 val id = request.pathVariable("id")
                 carbonMeasurementsRepository.getMeasurement(id)
-                    .then(ServerResponse.ok().body(BodyInserters.fromValue(it)))
+                    .flatMap { measurement ->
+                        ServerResponse
+                            .ok()
+                            .body(BodyInserters.fromValue(measurement))
+                    }
             }
         }
 

@@ -1,6 +1,10 @@
 package ch.burguiere.carbonlog.carbonlogbackend.repository
 
 import ch.burguiere.carbonlog.base.CarbonMeasurement
+import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository.Fields.CO2KG
+import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository.Fields.ID
+import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository.Fields.INPUT_DESCRIPTION
+import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository.Fields.TIMESTAMP
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.reactivestreams.client.MongoCollection
 import org.bson.BsonDateTime
@@ -26,7 +30,7 @@ class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<
         collection.find().toFlux().map { it.parseMeasurement() }
 
     override fun getMeasurement(id: String): Mono<CarbonMeasurement> = collection
-        .find(eq(Fields.ID.name, BsonString(id)))
+        .find(eq(ID.title, BsonString(id)))
         .toMono()
         .map { it.parseMeasurement() }
 
@@ -36,29 +40,29 @@ class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<
         .then()
 
     override fun deleteMeasurement(id: String): Mono<Void> = collection
-        .findOneAndDelete(eq(Fields.ID.name, BsonString(id)))
+        .findOneAndDelete(eq(ID.title, BsonString(id)))
         .toMono()
         .then()
 }
 
 private fun BsonDocument.parseMeasurement(): CarbonMeasurement =
     CarbonMeasurement(
-        id = this.getString(Fields.ID.name).value,
-        co2Kg = this.getDouble(Fields.CO2KG.name).value,
-        dt = Instant.ofEpochMilli(this.getDateTime("timestamp").value),
+        id = this.getString(ID.title).value,
+        co2Kg = this.getDouble(CO2KG.title).value,
+        dt = Instant.ofEpochMilli(this.getDateTime(TIMESTAMP.title).value),
         inputDescription = when {
-            this.containsKey("inputDescription") -> this.getString("inputDescription").value
+            this.containsKey(INPUT_DESCRIPTION.title) -> this.getString(INPUT_DESCRIPTION.title).value
             else -> null
         }
     )
 
 private fun CarbonMeasurement.toBson(): BsonDocument =
     BsonDocument()
-        .append(Fields.CO2KG.name, BsonDouble(this.co2Kg))
-        .append(Fields.ID.name, BsonString(this.id))
-        .append("timestamp", BsonDateTime(this.dt.toEpochMilli()))
+        .append(CO2KG.title, BsonDouble(this.co2Kg))
+        .append(ID.title, BsonString(this.id))
+        .append(TIMESTAMP.title, BsonDateTime(this.dt.toEpochMilli()))
         .also { bson ->
             if (this.inputDescription != null) {
-                bson.append("inputDescription", BsonString(this.inputDescription))
+                bson.append(INPUT_DESCRIPTION.title, BsonString(this.inputDescription))
             }
         }
