@@ -56,6 +56,7 @@ class CarbonLogBackendAppTest {
     @Test
     fun `should CRUD measurement`() {
         val measurement = CarbonMeasurement(
+            id = "testMeasurementId",
             co2Kg = 6.66,
             dt = ZonedDateTime.of(
                 LocalDateTime.of(2022, 1, 1, 13, 37),
@@ -83,6 +84,7 @@ class CarbonLogBackendAppTest {
         val responseBody = getResponse.expectBody<List<CarbonMeasurement>>().returnResult().responseBody
 
         assertThat(responseBody).hasSize(1)
+        assertThat(responseBody?.first()?.id).isEqualTo("testMeasurementId")
         assertThat(responseBody?.first()?.co2Kg).isEqualTo(6.66)
         assertThat(responseBody?.first()?.inputDescription).isEqualTo("test measurement")
         assertThat(responseBody?.first()?.dt.toString()).isEqualTo("2022-01-01T13:37:00Z")

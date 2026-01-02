@@ -16,8 +16,8 @@ class CarbonLogTest {
     @Test
     fun `should get results when in range`() {
         // given
-        val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm2 = CarbonMeasurement(co2Kg = 2.0, dt = date2.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm3 = CarbonMeasurement(co2Kg = 3.0, dt = date3.atStartOfDay().toInstant(ZoneOffset.UTC))
         val log = CarbonLog(listOf(cm2, cm3))
 
         // when
@@ -33,11 +33,11 @@ class CarbonLogTest {
     @Test
     fun `should get results when in range with added data`() {
         // given
-        val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm2 = CarbonMeasurement(co2Kg = 2.0, dt = date2.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm3 = CarbonMeasurement(co2Kg = 3.0, dt = date3.atStartOfDay().toInstant(ZoneOffset.UTC))
         var log = CarbonLog(listOf(cm2, cm3))
 
-        val addedCm = CarbonMeasurement(11.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val addedCm = CarbonMeasurement(co2Kg = 11.0, dt = date2.atStartOfDay().toInstant(ZoneOffset.UTC))
 
         log = log.copyAdding(addedCm)
 
@@ -54,8 +54,8 @@ class CarbonLogTest {
     @Test
     fun `should get nothing when outside range`() {
         // given
-        val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm2 = CarbonMeasurement(co2Kg = 2.0, dt = date2.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm3 = CarbonMeasurement(co2Kg = 3.0, dt = date3.atStartOfDay().toInstant(ZoneOffset.UTC))
         val log = CarbonLog(listOf(cm2, cm3))
 
         // when
@@ -71,8 +71,8 @@ class CarbonLogTest {
     @Test
     fun `should get nothing when search range exclusive`() {
         // given
-        val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm2 = CarbonMeasurement(co2Kg = 2.0, dt = date2.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm3 = CarbonMeasurement(co2Kg = 3.0, dt = date3.atStartOfDay().toInstant(ZoneOffset.UTC))
         val log = CarbonLog(listOf(cm2, cm3))
 
         // when
@@ -88,8 +88,8 @@ class CarbonLogTest {
     @Test
     fun `should get result when search range inclusive`() {
         // given
-        val cm2 = CarbonMeasurement(2.0, date2.atStartOfDay().toInstant(ZoneOffset.UTC))
-        val cm3 = CarbonMeasurement(3.0, date3.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm2 = CarbonMeasurement(co2Kg = 2.0, dt = date2.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm3 = CarbonMeasurement(co2Kg = 3.0, dt = date3.atStartOfDay().toInstant(ZoneOffset.UTC))
         val log = CarbonLog(listOf(cm2, cm3))
 
         // when
@@ -107,8 +107,8 @@ class CarbonLogTest {
     fun `should get result for current year`() {
         // given
         val todayDate = Instant.now()
-        val cm2 = CarbonMeasurement(2.0, todayDate)
-        val cm3 = CarbonMeasurement(3.0, date_2021.atStartOfDay().toInstant(ZoneOffset.UTC))
+        val cm2 = CarbonMeasurement(co2Kg = 2.0, dt = todayDate)
+        val cm3 = CarbonMeasurement(co2Kg = 3.0, dt = date_2021.atStartOfDay().toInstant(ZoneOffset.UTC))
         val log = CarbonLog(listOf(cm2, cm3))
 
         // when
@@ -119,9 +119,9 @@ class CarbonLogTest {
     }
 
     @Test
-    fun `should get total CO2 Kg`(){
-        val cm2 = CarbonMeasurement(2.0, Instant.now())
-        val cm3 = CarbonMeasurement(3.0, Instant.now())
+    fun `should get total CO2 Kg`() {
+        val cm2 = CarbonMeasurement(co2Kg = 2.0, dt = Instant.now())
+        val cm3 = CarbonMeasurement(co2Kg = 3.0, dt = Instant.now())
         val log = CarbonLog(listOf(cm2, cm3))
 
         assertThat(log.getTotalCarbonKgs()).isEqualTo(5.0)

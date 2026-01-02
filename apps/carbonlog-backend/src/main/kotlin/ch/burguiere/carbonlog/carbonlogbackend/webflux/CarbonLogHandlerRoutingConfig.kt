@@ -46,7 +46,7 @@ open class CarbonLogHandlerRoutingConfig(
             request.whenAuth {
                 try {
                     request.pathVariable("co2Kg").toDouble().let {
-                        carbonLogRepository.insertMeasurement(CarbonMeasurement(it, Instant.now()))
+                        carbonLogRepository.insertMeasurement(CarbonMeasurement(co2Kg = it, dt = Instant.now()))
                             .flatMap { ServerResponse.status(HttpStatus.CREATED).build() }
                     }
                 } catch (_: NumberFormatException) {
