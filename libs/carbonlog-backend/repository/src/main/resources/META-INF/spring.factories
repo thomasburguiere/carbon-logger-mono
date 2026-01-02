@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- ch.burguiere.carbonlog.carbonlogbackend.repository.RepoConfig
