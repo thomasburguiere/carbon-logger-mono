@@ -5,7 +5,6 @@ import com.mongodb.reactivestreams.client.MongoDatabase
 import org.assertj.core.api.Assertions.assertThat
 import org.bson.BsonDocument
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,11 +24,11 @@ import java.time.Instant
 @Testcontainers
 @ExtendWith(SpringExtension::class)
 @ContextConfiguration(classes = [RepoConfig::class])
-class MongoCarbonLogRepositoryIntegrationTest {
+class MongoCarbonMeasurementsRepositoryIntegrationTest {
 
 
     @Autowired
-    private lateinit var repo: CarbonLogRepository
+    private lateinit var repo: CarbonMeasurementsRepository
 
     @Autowired
     private lateinit var db: MongoDatabase
@@ -50,7 +49,7 @@ class MongoCarbonLogRepositoryIntegrationTest {
     @AfterEach
     fun afterEach() {
         StepVerifier.create(
-            db.getCollection(measurementsCollectionName)
+            db.getCollection(MongoCarbonMeasurementsRepository.collectionName)
                 .deleteMany(BsonDocument())
                 .toMono()
                 .then()

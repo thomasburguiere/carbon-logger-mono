@@ -1,7 +1,7 @@
 package ch.burguiere.carbonlog.carbonlogbackend.webflux
 
 import ch.burguiere.carbonlog.base.CarbonMeasurement
-import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonLogRepository
+import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,7 +18,7 @@ import java.time.Instant
 
 @Configuration
 open class CarbonLogHandlerRoutingConfig(
-    private val carbonLogRepository: CarbonLogRepository,
+    private val carbonMeasurementsRepository: CarbonMeasurementsRepository,
     @param:Value("\${static.auth.token}") private val staticToken: String,
 ) {
     @Bean
@@ -30,7 +30,7 @@ open class CarbonLogHandlerRoutingConfig(
 
         GET("/carbon-logs/measurements") { request ->
             request.whenAuth {
-                carbonLogRepository.getMeasurements().collectList()
+                carbonMeasurementsRepository.getMeasurements().collectList()
                     .flatMap { ServerResponse.ok().body(BodyInserters.fromValue(it)) }
             }
         }
@@ -38,7 +38,7 @@ open class CarbonLogHandlerRoutingConfig(
         GET("/carbon-logs/measurements/{id}") { request ->
             request.whenAuth {
                 val id = request.pathVariable("id")
-                carbonLogRepository.getMeasurement(id)
+                carbonMeasurementsRepository.getMeasurement(id)
                     .flatMap { ServerResponse.ok().body(BodyInserters.fromValue(it)) }
             }
         }
@@ -46,7 +46,7 @@ open class CarbonLogHandlerRoutingConfig(
         POST("/carbon-logs/measurements") { request ->
             request.whenAuth {
                 request.bodyToMono<CarbonMeasurement>()
-                    .flatMap { carbonLogRepository.insertMeasurement(it) }
+                    .flatMap { carbonMeasurementsRepository.insertMeasurement(it) }
                     .flatMap { ServerResponse.status(HttpStatus.CREATED).build() }
             }
         }
@@ -54,7 +54,7 @@ open class CarbonLogHandlerRoutingConfig(
             request.whenAuth {
                 try {
                     request.pathVariable("co2Kg").toDouble().let {
-                        carbonLogRepository.insertMeasurement(CarbonMeasurement(co2Kg = it, dt = Instant.now()))
+                        carbonMeasurementsRepository.insertMeasurement(CarbonMeasurement(co2Kg = it, dt = Instant.now()))
                             .flatMap { ServerResponse.status(HttpStatus.CREATED).build() }
                     }
                 } catch (_: NumberFormatException) {
