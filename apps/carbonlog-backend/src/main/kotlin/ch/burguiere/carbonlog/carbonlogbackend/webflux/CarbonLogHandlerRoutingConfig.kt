@@ -115,9 +115,9 @@ open class CarbonLogHandlerRoutingConfig(
         }
     }
 
-    private fun ServerRequest.whenAuth(authedRequestHandler: (ServerRequest) -> Mono<ServerResponse>): Mono<ServerResponse> =
+    private fun ServerRequest.whenAuth(authedRequestHandler: () -> Mono<ServerResponse>): Mono<ServerResponse> =
         when (isAuthed()) {
-            true -> authedRequestHandler(this)
+            true -> authedRequestHandler()
             else -> {
                 log.warn("Unauthorized access for ${this.method()} ${this.path()}")
                 ServerResponse.status(UNAUTHORIZED).build()
