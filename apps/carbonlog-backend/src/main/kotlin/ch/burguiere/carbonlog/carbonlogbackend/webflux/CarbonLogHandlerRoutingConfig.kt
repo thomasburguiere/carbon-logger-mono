@@ -2,11 +2,14 @@ package ch.burguiere.carbonlog.carbonlogbackend.webflux
 
 import ch.burguiere.carbonlog.base.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatus.CREATED
+import org.springframework.http.HttpStatus.UNAUTHORIZED
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -22,6 +25,9 @@ open class CarbonLogHandlerRoutingConfig(
     private val carbonMeasurementsRepository: CarbonMeasurementsRepository,
     @param:Value("\${static.auth.token}") private val staticToken: String,
 ) {
+
+    val log: Logger = LoggerFactory.getLogger(CarbonLogHandlerRoutingConfig::class.java)
+
     @Bean
     open fun configureRouting(): RouterFunction<ServerResponse> = router {
 
@@ -79,26 +85,32 @@ open class CarbonLogHandlerRoutingConfig(
         }
         POST("/carbon-logs/measurements/{co2Kg}") { request ->
             request.whenAuth {
-                try {
-                    val co2Kg = request.pathVariable("co2Kg").toDouble()
-                    val measurement = CarbonMeasurement(
-                        co2Kg = co2Kg,
-                        dt = Instant.now()
-                    )
-                    carbonMeasurementsRepository
-                        .insertMeasurement(measurement)
-                        .then(
-                            ServerResponse
-                                .status(CREATED)
-                                .header(
-                                    "Location",
-                                    "/carbon-logs/measurements/${measurement.id}"
-                                )
-                                .build()
-                        )
-                } catch (_: NumberFormatException) {
-                    ServerResponse.badRequest().build()
+                val co2KgPathVar: String = request.pathVariable("co2Kg")
+
+                val co2Kg: Double = try {
+                    co2KgPathVar.toDouble()
+                } catch (e: NumberFormatException) {
+                    val msg = "Tried to create measurement with invalid co2Kg number: $co2KgPathVar"
+                    log.warn(msg, e)
+                    return@whenAuth ServerResponse
+                        .badRequest()
+                        .bodyValue(msg)
                 }
+                val measurement = CarbonMeasurement(
+                    co2Kg = co2Kg,
+                    dt = Instant.now()
+                )
+                carbonMeasurementsRepository
+                    .insertMeasurement(measurement)
+                    .then(
+                        ServerResponse
+                            .status(CREATED)
+                            .header(
+                                "Location",
+                                "/carbon-logs/measurements/${measurement.id}"
+                            )
+                            .build()
+                    )
             }
         }
     }
@@ -106,7 +118,10 @@ open class CarbonLogHandlerRoutingConfig(
     private fun ServerRequest.whenAuth(authedRequestHandler: (ServerRequest) -> Mono<ServerResponse>): Mono<ServerResponse> =
         when (isAuthed()) {
             true -> authedRequestHandler(this)
-            else -> ServerResponse.status(HttpStatus.UNAUTHORIZED).build()
+            else -> {
+                log.warn("Unauthorized access for ${this.method()} ${this.path()}")
+                ServerResponse.status(UNAUTHORIZED).build()
+            }
         }
 
     private fun ServerRequest.isAuthed(): Boolean = headers().header("Authorization")
