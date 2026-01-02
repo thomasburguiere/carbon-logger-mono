@@ -18,4 +18,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+
+    testImplementation("org.springframework.boot:spring-boot-webtestclient")
 }

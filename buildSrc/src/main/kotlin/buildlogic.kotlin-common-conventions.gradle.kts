@@ -27,8 +27,11 @@ dependencies {
         implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.0")
         testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
         implementation("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
+        testImplementation("org.springframework.boot:spring-boot-webtestclient:${springBootVersion}")
         testImplementation("io.projectreactor:reactor-test:3.8.1")
         testImplementation("org.springframework.security:spring-security-test:$springCoreVersion")
+
+        testImplementation("org.testcontainers:junit-jupiter:1.21.4")
 
         implementation("tools.jackson.module:jackson-module-kotlin:3.0.3")
         implementation("org.mongodb:mongodb-driver-reactivestreams:5.6.2")
@@ -41,6 +44,8 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     testImplementation("org.assertj:assertj-core")
+
+    testImplementation("org.testcontainers:junit-jupiter")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
