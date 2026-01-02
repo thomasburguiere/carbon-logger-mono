@@ -13,4 +13,5 @@ interface CarbonMeasurementsRepository {
     fun getMeasurements(): Flux<CarbonMeasurement>
     fun getMeasurement(id: String): Mono<CarbonMeasurement>
     fun insertMeasurement(measurement: CarbonMeasurement): Mono<Void>
+    fun deleteMeasurement(id: String): Mono<Void>
 }

@@ -34,6 +34,11 @@ class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<
         .insertOne(measurement.toBson())
         .toMono()
         .then()
+
+    override fun deleteMeasurement(id: String): Mono<Void> = collection
+        .findOneAndDelete(eq(Fields.ID.name, BsonString(id)))
+        .toMono()
+        .then()
 }
 
 private fun BsonDocument.parseMeasurement(): CarbonMeasurement =

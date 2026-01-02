@@ -82,5 +82,32 @@ class MongoCarbonMeasurementsRepositoryIntegrationTest {
             .verifyComplete()
         StepVerifier.create(repo.insertMeasurement(measurement2))
             .verifyError()
+
+        StepVerifier.create(repo.getMeasurements().collectList())
+            .assertNext { list -> assertThat(list).hasSize(1) }
+            .verifyComplete()
+    }
+
+    @Test
+    fun `should delete`() {
+        val measurement1 = CarbonMeasurement(
+            id = "duplicateId",
+            co2Kg = 3.33,
+            dt = Instant.now()
+        )
+
+        StepVerifier.create(repo.insertMeasurement(measurement1))
+            .verifyComplete()
+
+        StepVerifier.create(repo.getMeasurements().collectList())
+            .assertNext { list -> assertThat(list).hasSize(1) }
+            .verifyComplete()
+
+        StepVerifier.create(repo.deleteMeasurement(measurement1.id))
+            .verifyComplete()
+
+        StepVerifier.create(repo.getMeasurements().collectList())
+            .assertNext { list -> assertThat(list).isEmpty() }
+            .verifyComplete()
     }
 }

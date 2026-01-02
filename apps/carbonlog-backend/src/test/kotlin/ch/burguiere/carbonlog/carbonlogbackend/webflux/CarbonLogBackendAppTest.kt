@@ -76,17 +76,34 @@ class CarbonLogBackendAppTest {
 
         val getResponse = testClient
             .get()
-            .uri("http://localhost:$port/carbon-logs/measurements/testMeasurementId")
+            .uri("http://localhost:$port/carbon-logs/measurements/${measurement.id}")
             .header("Authorization", "Basic $dummyToken")
             .exchange()
 
         getResponse.expectStatus().is2xxSuccessful
-        val responseBody = getResponse.expectBody<CarbonMeasurement>().returnResult().responseBody
+        val getMeasurementBody = getResponse.expectBody<CarbonMeasurement>().returnResult().responseBody
 
-        assertThat(responseBody?.id).isEqualTo("testMeasurementId")
-        assertThat(responseBody?.co2Kg).isEqualTo(6.66)
-        assertThat(responseBody?.inputDescription).isEqualTo("test measurement")
-        assertThat(responseBody?.dt.toString()).isEqualTo("2022-01-01T13:37:00Z")
+        assertThat(getMeasurementBody?.id).isEqualTo(measurement.id)
+        assertThat(getMeasurementBody?.co2Kg).isEqualTo(6.66)
+        assertThat(getMeasurementBody?.inputDescription).isEqualTo("test measurement")
+        assertThat(getMeasurementBody?.dt.toString()).isEqualTo("2022-01-01T13:37:00Z")
+
+        val deleteResponse = testClient
+            .delete()
+            .uri("http://localhost:$port/carbon-logs/measurements/${measurement.id}")
+            .header("Authorization", "Basic $dummyToken")
+            .exchange()
+
+        deleteResponse.expectStatus().is2xxSuccessful
+
+        val getAllResponse = testClient
+            .get()
+            .uri("http://localhost:$port/carbon-logs/measurements")
+            .header("Authorization", "Basic $dummyToken")
+            .exchange()
+
+        val getAllBody = getAllResponse.expectBody<List<CarbonMeasurement>>().returnResult().responseBody
+        assertThat(getAllBody).isEmpty()
     }
 
     companion object {
