@@ -1,15 +1,10 @@
 package ch.burguiere.carbonlog.base
 
 import ch.burguiere.carbonlog.base.CarbonMeasurement.Companion.ofCarbonEquivalent
-import ch.burguiere.carbonlog.carbonlogconverter.CarbonEquivalent
-import org.assertj.core.api.Assertions
+import ch.burguiere.carbonlog.converter.CarbonEquivalent
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.data.Offset
 import org.assertj.core.data.Offset.offset
 import org.junit.jupiter.api.Test
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 class CarbonMeasurementTest {
     @Test
