@@ -1,7 +1,12 @@
 package ch.burguiere.carbonlog.carbonlogbackend.webflux
 
 import ch.burguiere.carbonlog.base.CarbonMeasurement
+import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository
+import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository
+import com.mongodb.reactivestreams.client.MongoDatabase
 import org.assertj.core.api.Assertions.assertThat
+import org.bson.BsonDocument
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -16,6 +21,8 @@ import org.testcontainers.containers.GenericContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
+import reactor.kotlin.core.publisher.toMono
+import reactor.test.StepVerifier
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -32,6 +39,22 @@ class CarbonLogBackendAppTest {
 
     @Autowired
     private lateinit var testClient: WebTestClient
+
+    @Autowired
+    private lateinit var database: MongoDatabase
+
+    @Autowired
+    private lateinit var measurementsRepository: CarbonMeasurementsRepository
+
+    @AfterEach
+    fun afterEach() {
+        val clearMono = database
+            .getCollection(MongoCarbonMeasurementsRepository.collectionName)
+            .deleteMany(BsonDocument())
+            .toMono()
+            .then()
+        StepVerifier.create(clearMono).verifyComplete()
+    }
 
     @Test
     fun `should run`() {
@@ -51,6 +74,28 @@ class CarbonLogBackendAppTest {
             .exchange()
 
         response.expectStatus().equals(401)
+    }
+
+    @Test
+    fun `should create measurement without req body`() {
+        val postResponse = testClient
+            .post()
+            .uri("http://localhost:$port/carbon-logs/measurements/42.0")
+            .header("Authorization", "Basic $dummyToken")
+            .exchange()
+
+        postResponse.expectStatus().isEqualTo(201)
+        val id = postResponse.returnResult()
+            .responseHeaders["Location"]?.first()
+            ?.split("/")?.last()
+
+        assertThat(id).isNotNull
+
+        StepVerifier.create(measurementsRepository.getMeasurement(id!!))
+            .assertNext { measurement ->
+                assertThat(measurement.co2Kg).isEqualTo(42.0)
+            }
+            .verifyComplete()
     }
 
     @Test
