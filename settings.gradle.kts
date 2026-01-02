@@ -15,5 +15,4 @@ include(
     "apps:carbonlog-backend",
     "libs:carbonlog-backend:repository",
     "libs:carbonlog-base",
-    "libs:carbonlog-converter",
 )
