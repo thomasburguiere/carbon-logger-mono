@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":libs:carbonlog-base"))
+    implementation(project(":libs:carbonlog-model"))
     implementation("tools.jackson.module:jackson-module-kotlin")
 }
