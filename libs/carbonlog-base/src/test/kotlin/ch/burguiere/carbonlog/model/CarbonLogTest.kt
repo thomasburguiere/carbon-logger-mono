@@ -1,4 +1,4 @@
-package ch.burguiere.carbonlog.base
+package ch.burguiere.carbonlog.model
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

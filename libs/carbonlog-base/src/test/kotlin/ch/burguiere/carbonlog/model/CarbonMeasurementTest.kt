@@ -1,7 +1,7 @@
-package ch.burguiere.carbonlog.base
+package ch.burguiere.carbonlog.model
 
-import ch.burguiere.carbonlog.base.CarbonMeasurement.Companion.ofCarbonEquivalent
-import ch.burguiere.carbonlog.converter.CarbonEquivalent
+import ch.burguiere.carbonlog.model.CarbonMeasurement.Companion.ofCarbonEquivalent
+import ch.burguiere.carbonlog.model.converter.CarbonEquivalent
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.data.Offset.offset
 import org.junit.jupiter.api.Test

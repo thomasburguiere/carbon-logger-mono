@@ -1,6 +1,6 @@
 package ch.burguiere.carbonlog.carbonlogbackend.repository
 
-import ch.burguiere.carbonlog.base.CarbonMeasurement
+import ch.burguiere.carbonlog.model.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.reactivestreams.client.MongoCollection
