@@ -25,8 +25,8 @@ dependencies {
 
         implementation("org.springframework.boot:spring-boot-starter-webflux:$springBootVersion")
         implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+        implementation("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
         testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-        implementation("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
         testImplementation("org.springframework.boot:spring-boot-webtestclient:${springBootVersion}")
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.20.1")
