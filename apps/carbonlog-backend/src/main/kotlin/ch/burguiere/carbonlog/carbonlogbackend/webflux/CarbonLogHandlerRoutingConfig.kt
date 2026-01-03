@@ -30,66 +30,56 @@ open class CarbonLogHandlerRoutingConfig(
     @Bean
     open fun configureRouting(): RouterFunction<ServerResponse> = router {
 
-        GET("/") {
+        GET("/healthz") {
             ServerResponse.ok().bodyValue("CarbonLogBackend is running").toMono()
         }
 
         GET("/carbon-logs/measurements") { request ->
-            request.whenAuth {
-                carbonMeasurementsRepository.getMeasurements().collectList()
-                    .flatMap { measurements ->
-                        ServerResponse
-                            .ok()
-                            .body(BodyInserters.fromValue(measurements))
-                    }
-            }
+            carbonMeasurementsRepository.getMeasurements().collectList()
+                .flatMap { measurements ->
+                    ServerResponse
+                        .ok()
+                        .body(BodyInserters.fromValue(measurements))
+                }
         }
 
         GET("/carbon-logs/measurements/{id}") { request ->
-            request.whenAuth {
-                val id = request.pathVariable("id")
-                carbonMeasurementsRepository.getMeasurement(id)
-                    .flatMap { measurement ->
-                        ServerResponse
-                            .ok()
-                            .body(BodyInserters.fromValue(measurement))
-                    }
-            }
+            val id = request.pathVariable("id")
+            carbonMeasurementsRepository.getMeasurement(id)
+                .flatMap { measurement ->
+                    ServerResponse
+                        .ok()
+                        .body(BodyInserters.fromValue(measurement))
+                }
         }
 
         DELETE("/carbon-logs/measurements/{id}") { request ->
-            request.whenAuth {
-                val id = request.pathVariable("id")
-                carbonMeasurementsRepository.deleteMeasurement(id)
-                    .then(ServerResponse.noContent().build())
-            }
+            val id = request.pathVariable("id")
+            carbonMeasurementsRepository.deleteMeasurement(id)
+                .then(ServerResponse.noContent().build())
         }
 
         POST("/carbon-logs/measurements") { request ->
-            request.whenAuth {
-                request.bodyToMono<CarbonMeasurement>()
-                    .flatMap { measurement -> insertMeasurementAndReturn201(measurement) }
-            }
+            request.bodyToMono<CarbonMeasurement>()
+                .flatMap { measurement -> insertMeasurementAndReturn201(measurement) }
         }
         POST("/carbon-logs/measurements/{co2Kg}") { request ->
-            request.whenAuth {
-                val co2KgPathVar: String = request.pathVariable("co2Kg")
+            val co2KgPathVar: String = request.pathVariable("co2Kg")
 
-                val co2Kg: Double = try {
-                    co2KgPathVar.toDouble()
-                } catch (e: NumberFormatException) {
-                    val msg = "Tried to create measurement with invalid co2Kg number: $co2KgPathVar"
-                    log.warn(msg, e)
-                    return@whenAuth ServerResponse
-                        .badRequest()
-                        .bodyValue(msg)
-                }
-                val measurement = CarbonMeasurement(
-                    co2Kg = co2Kg,
-                    dt = Instant.now()
-                )
-                insertMeasurementAndReturn201(measurement)
+            val co2Kg: Double = try {
+                co2KgPathVar.toDouble()
+            } catch (e: NumberFormatException) {
+                val msg = "Tried to create measurement with invalid co2Kg number: $co2KgPathVar"
+                log.warn(msg, e)
+                return@POST ServerResponse
+                    .badRequest()
+                    .bodyValue(msg)
             }
+            val measurement = CarbonMeasurement(
+                co2Kg = co2Kg,
+                dt = Instant.now()
+            )
+            insertMeasurementAndReturn201(measurement)
         }
     }
 
@@ -105,18 +95,4 @@ open class CarbonLogHandlerRoutingConfig(
                     )
                     .build()
             )
-
-    private fun ServerRequest.whenAuth(authedRequestHandler: () -> Mono<ServerResponse>): Mono<ServerResponse> =
-        when (isAuthed()) {
-            true -> authedRequestHandler()
-            else -> {
-                log.warn("Unauthorized access for ${this.method()} ${this.path()}")
-                ServerResponse.status(UNAUTHORIZED).build()
-            }
-        }
-
-    private fun ServerRequest.isAuthed(): Boolean = headers().header("Authorization")
-        .find { it.startsWith("Basic") }
-        ?.split("Basic ")
-        ?.getOrNull(1)?.let { it == staticToken } ?: false
 }

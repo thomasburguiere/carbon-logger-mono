@@ -59,7 +59,7 @@ class CarbonLogBackendAppTest {
     @Test
     fun `should run`() {
         val response = testClient
-            .get().uri("http://localhost:$port")
+            .get().uri("http://localhost:$port/healthz")
             .exchange()
 
         response.expectStatus().is2xxSuccessful
@@ -81,7 +81,7 @@ class CarbonLogBackendAppTest {
         val postResponse = testClient
             .post()
             .uri("http://localhost:$port/carbon-logs/measurements/42.0")
-            .header("Authorization", "Basic $dummyToken")
+            .header("Authorization", "Bearer $dummyToken")
             .exchange()
 
         postResponse.expectStatus().isEqualTo(201)
@@ -114,7 +114,7 @@ class CarbonLogBackendAppTest {
             .post()
             .uri("http://localhost:$port/carbon-logs/measurements")
             .bodyValue(measurement)
-            .header("Authorization", "Basic $dummyToken")
+            .header("Authorization", "Bearer $dummyToken")
             .exchange()
 
         postResponse.expectStatus().isEqualTo(201)
@@ -123,7 +123,7 @@ class CarbonLogBackendAppTest {
         val getResponse = testClient
             .get()
             .uri("http://localhost:$port/carbon-logs/measurements/${measurement.id}")
-            .header("Authorization", "Basic $dummyToken")
+            .header("Authorization", "Bearer $dummyToken")
             .exchange()
 
         getResponse.expectStatus().is2xxSuccessful
@@ -137,7 +137,7 @@ class CarbonLogBackendAppTest {
         val deleteResponse = testClient
             .delete()
             .uri("http://localhost:$port/carbon-logs/measurements/${measurement.id}")
-            .header("Authorization", "Basic $dummyToken")
+            .header("Authorization", "Bearer $dummyToken")
             .exchange()
 
         deleteResponse.expectStatus().isEqualTo(204)
@@ -145,7 +145,7 @@ class CarbonLogBackendAppTest {
         val getAllResponse = testClient
             .get()
             .uri("http://localhost:$port/carbon-logs/measurements")
-            .header("Authorization", "Basic $dummyToken")
+            .header("Authorization", "Bearer $dummyToken")
             .exchange()
 
         val getAllBody = getAllResponse.expectBody<List<CarbonMeasurement>>().returnResult().responseBody
