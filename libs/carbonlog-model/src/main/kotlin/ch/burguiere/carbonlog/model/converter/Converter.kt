@@ -1,4 +1,4 @@
-package ch.burguiere.carbonlog.converter
+package ch.burguiere.carbonlog.model.converter
 
 enum class CO2KgRatios(val ratio: Double) {
     beefMeal(0.14), chickenMeal(0.63), chickenKg(0.05494505495), // based on https://www.co2everything.com/co2e-of/chicken

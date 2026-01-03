@@ -13,5 +13,5 @@ plugins {
 rootProject.name = "carbonlogger"
 include(
     "apps:carbonlog-backend",
-    "libs:carbonlog-base",
+    "libs:carbonlog-model",
 )

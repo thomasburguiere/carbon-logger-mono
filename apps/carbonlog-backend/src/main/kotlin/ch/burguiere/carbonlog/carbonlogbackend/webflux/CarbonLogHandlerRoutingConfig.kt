@@ -1,6 +1,6 @@
 package ch.burguiere.carbonlog.carbonlogbackend.webflux
 
-import ch.burguiere.carbonlog.base.CarbonMeasurement
+import ch.burguiere.carbonlog.model.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

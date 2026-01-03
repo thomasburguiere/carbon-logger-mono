@@ -1,6 +1,6 @@
 package ch.burguiere.carbonlog.carbonlogbackend.repository
 
-import ch.burguiere.carbonlog.base.CarbonMeasurement
+import ch.burguiere.carbonlog.model.CarbonMeasurement
 import com.mongodb.reactivestreams.client.MongoDatabase
 import org.assertj.core.api.Assertions.assertThat
 import org.bson.BsonDocument

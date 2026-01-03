@@ -1,4 +1,4 @@
-package ch.burguiere.carbonlog.base
+package ch.burguiere.carbonlog.model
 
 import java.time.Instant
 import java.time.LocalDate

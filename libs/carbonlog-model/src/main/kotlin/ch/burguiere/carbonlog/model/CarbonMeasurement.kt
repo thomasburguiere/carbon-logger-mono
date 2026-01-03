@@ -1,6 +1,6 @@
-package ch.burguiere.carbonlog.base
+package ch.burguiere.carbonlog.model
 
-import ch.burguiere.carbonlog.converter.CarbonEquivalent
+import ch.burguiere.carbonlog.model.converter.CarbonEquivalent
 import java.time.Instant
 import java.util.UUID
 

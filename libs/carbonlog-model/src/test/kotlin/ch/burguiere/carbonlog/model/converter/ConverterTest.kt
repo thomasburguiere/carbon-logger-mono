@@ -1,5 +1,6 @@
-package ch.burguiere.carbonlog.converter
+package ch.burguiere.carbonlog.model.converter
 
+import ch.burguiere.carbonlog.model.converter.CarbonEquivalent
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.data.Offset
 import org.junit.jupiter.api.Test
