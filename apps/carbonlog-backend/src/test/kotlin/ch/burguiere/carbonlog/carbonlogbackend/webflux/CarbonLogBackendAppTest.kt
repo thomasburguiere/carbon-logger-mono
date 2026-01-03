@@ -99,6 +99,20 @@ class CarbonLogBackendAppTest {
     }
 
     @Test
+    fun `should get 400 when creating measurement without req body with invalid co2kg number`() {
+        val response = testClient
+            .post()
+            .uri("http://localhost:$port/carbon-logs/measurements/42.0a")
+            .header("Authorization", "Bearer $dummyToken")
+            .exchange()
+
+        response.expectStatus().isEqualTo(400)
+        val responseBody = response.expectBody<String>().returnResult().responseBody
+        assertThat(responseBody).isEqualTo("Tried to create measurement with invalid co2Kg number: 42.0a")
+
+    }
+
+    @Test
     fun `should CRUD measurement`() {
         val measurement = CarbonMeasurement(
             id = "testMeasurementId",
