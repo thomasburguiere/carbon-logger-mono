@@ -21,21 +21,20 @@ dependencies {
         // Define dependency versions as constraints
         implementation("org.springframework:spring-context:$springCoreVersion")
         testImplementation("org.springframework:spring-test:$springCoreVersion")
+        testImplementation("org.springframework.security:spring-security-test:$springCoreVersion")
+
         implementation("org.springframework.boot:spring-boot-starter-webflux:$springBootVersion")
         implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.20.1")
-        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.0")
         testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
         implementation("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
         testImplementation("org.springframework.boot:spring-boot-webtestclient:${springBootVersion}")
-        testImplementation("io.projectreactor:reactor-test:3.8.1")
-        testImplementation("org.springframework.security:spring-security-test:$springCoreVersion")
 
-        testImplementation("org.testcontainers:junit-jupiter:1.21.4")
-
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.20.1")
+        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.0")
         implementation("tools.jackson.module:jackson-module-kotlin:3.0.3")
         implementation("org.mongodb:mongodb-driver-reactivestreams:5.6.2")
-
+        testImplementation("io.projectreactor:reactor-test:3.8.1")
+        testImplementation("org.testcontainers:junit-jupiter:1.21.4")
         testImplementation("org.assertj:assertj-core:3.27.6")
     }
 

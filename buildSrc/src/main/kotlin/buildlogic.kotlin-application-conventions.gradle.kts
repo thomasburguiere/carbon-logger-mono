@@ -13,10 +13,9 @@ plugins {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-webtestclient")
 
     implementation("org.mongodb:mongodb-driver-reactivestreams")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-
-    testImplementation("org.springframework.boot:spring-boot-webtestclient")
 }
