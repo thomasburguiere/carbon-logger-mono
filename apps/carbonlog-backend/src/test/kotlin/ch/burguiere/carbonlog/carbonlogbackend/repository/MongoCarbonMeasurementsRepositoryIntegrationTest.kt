@@ -109,4 +109,31 @@ class MongoCarbonMeasurementsRepositoryIntegrationTest {
             .assertNext { list -> assertThat(list).isEmpty() }
             .verifyComplete()
     }
+
+    @Test
+    fun `should update, allowing passing of null description`() {
+        val measurement = CarbonMeasurement(
+            id = "updated-measurement-id",
+            co2Kg = 3.33,
+            dt = Instant.now(),
+            inputDescription = "to be nulled"
+        )
+
+        StepVerifier.create(repo.insertMeasurement(measurement)).verifyComplete()
+
+        // when
+        StepVerifier.create (repo.updateMeasurement(measurement.id, CarbonMeasurement(
+            id = measurement.id,
+            co2Kg = measurement.co2Kg,
+            dt = measurement.dt,
+            inputDescription = null
+        )))
+            .verifyComplete()
+        // then
+        StepVerifier.create(repo.getMeasurement(measurement.id))
+            .assertNext { measurement ->
+                assertThat(measurement.inputDescription).isNull()
+            }
+            .verifyComplete()
+    }
 }
