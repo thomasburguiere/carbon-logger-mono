@@ -19,6 +19,7 @@ import org.testcontainers.utility.DockerImageName
 import reactor.kotlin.core.publisher.toMono
 import reactor.test.StepVerifier
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 @Testcontainers
 @ExtendWith(SpringExtension::class)
@@ -133,6 +134,64 @@ class MongoCarbonMeasurementsRepositoryIntegrationTest {
         StepVerifier.create(repo.getMeasurement(measurement.id))
             .assertNext { measurement ->
                 assertThat(measurement.inputDescription).isNull()
+            }
+            .verifyComplete()
+    }
+
+    @Test
+    fun `should create measurement when upserting, if it doesnt exist`() {
+        val measurement = CarbonMeasurement(
+            id = "upserted-measurement-id",
+            co2Kg = 3.33,
+            dt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
+            inputDescription = "to be nulled"
+        )
+        StepVerifier.create(repo.getMeasurements().collectList())
+            .assertNext { it.isEmpty() }
+            .verifyComplete()
+
+        // when
+        StepVerifier.create(repo.upsertMeasurement(measurement.id, measurement)).verifyComplete()
+
+        // then
+        StepVerifier.create(repo.getMeasurement(measurement.id))
+            .assertNext {
+                assertThat(it).isEqualTo(measurement)
+            }
+            .verifyComplete()
+    }
+
+    @Test
+    fun `should update measurement when upserting, if it already exists`() {
+        val measurement = CarbonMeasurement(
+            id = "upserted-measurement-id",
+            co2Kg = 3.33,
+            dt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
+            inputDescription = "to be nulled"
+        )
+        val insertAndList = repo.insertMeasurement(measurement).then(repo.getMeasurements().collectList())
+        StepVerifier.create(insertAndList)
+            .assertNext {
+                assertThat(it).hasSize(1)
+                assertThat(it[0]).isEqualTo(measurement)
+            }
+            .verifyComplete()
+
+        // when
+        val updated = CarbonMeasurement(
+            id = measurement.id,
+            co2Kg = 6.66,
+            dt = measurement.dt,
+            inputDescription = null
+        )
+
+        StepVerifier.create(repo.upsertMeasurement(measurement.id, updated)).verifyComplete()
+
+        // then
+        StepVerifier.create(repo.getMeasurements().collectList())
+            .assertNext {
+                assertThat(it).hasSize(1)
+                assertThat(it[0]).isEqualTo(updated)
             }
             .verifyComplete()
     }
