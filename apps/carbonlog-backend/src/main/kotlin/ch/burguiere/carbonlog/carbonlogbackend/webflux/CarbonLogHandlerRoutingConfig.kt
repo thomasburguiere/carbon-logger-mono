@@ -68,7 +68,7 @@ open class CarbonLogHandlerRoutingConfig(
             val id = request.pathVariable("id")
             request.bodyToMono<CarbonMeasurement>()
                 .flatMap { measurement ->
-                    carbonMeasurementsRepository.updateMeasurement(id, measurement)
+                    carbonMeasurementsRepository.upsertMeasurement(id, measurement)
                         .then(ServerResponse.ok().build())
                 }
         }

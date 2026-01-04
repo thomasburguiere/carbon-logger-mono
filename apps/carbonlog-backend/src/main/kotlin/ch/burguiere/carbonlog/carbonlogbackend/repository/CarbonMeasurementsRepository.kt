@@ -11,4 +11,5 @@ interface CarbonMeasurementsRepository {
     fun insertMeasurement(measurement: CarbonMeasurement): Mono<Void>
     fun deleteMeasurement(id: String): Mono<Void>
     fun updateMeasurement(id: String, measurement: CarbonMeasurement): Mono<Void>
+    fun upsertMeasurement(id: String, measurement: CarbonMeasurement): Mono<Void>
 }

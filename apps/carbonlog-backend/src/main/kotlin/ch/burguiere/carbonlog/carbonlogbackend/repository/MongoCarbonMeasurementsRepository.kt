@@ -6,7 +6,6 @@ import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.INPUT_DESCRIPTION
 import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.TIMESTAMP
 import com.mongodb.client.model.Filters.eq
-import com.mongodb.client.model.Updates
 import com.mongodb.client.model.Updates.combine
 import com.mongodb.client.model.Updates.set
 import com.mongodb.reactivestreams.client.MongoCollection
@@ -15,7 +14,6 @@ import org.bson.BsonDocument
 import org.bson.BsonDouble
 import org.bson.BsonNull
 import org.bson.BsonString
-import org.bson.conversions.Bson
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.kotlin.core.publisher.toFlux
@@ -55,18 +53,34 @@ class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<
         .toMono()
         .then()
 
-    override fun updateMeasurement(id: String, measurement: CarbonMeasurement): Mono<Void> = collection.findOneAndUpdate(
-        eq(ID, BsonString(id)),
-        combine(
-            set(CO2_KG, BsonDouble(measurement.co2Kg)),
-            set(TIMESTAMP, BsonDateTime(measurement.dt.toEpochMilli())),
-            when (measurement.inputDescription != null) {
-                true -> set(INPUT_DESCRIPTION, BsonString(measurement.inputDescription))
-                else -> set(INPUT_DESCRIPTION, BsonNull())
-            },
+    override fun updateMeasurement(id: String, measurement: CarbonMeasurement): Mono<Void> =
+        collection.findOneAndUpdate(
+            eq(ID, BsonString(id)),
+            combine(
+                set(CO2_KG, BsonDouble(measurement.co2Kg)),
+                set(TIMESTAMP, BsonDateTime(measurement.dt.toEpochMilli())),
+                when (measurement.inputDescription != null) {
+                    true -> set(INPUT_DESCRIPTION, BsonString(measurement.inputDescription))
+                    else -> set(INPUT_DESCRIPTION, BsonNull())
+                },
+            )
         )
-    )
-        .toMono().then()
+            .toMono().then()
+
+    fun exists(measurementId: String): Mono<Boolean> =
+        collection.find(eq(ID, BsonString(measurementId)))
+            .toMono()
+            .map { true }
+            .defaultIfEmpty(false)
+
+    override fun upsertMeasurement(id: String, measurement: CarbonMeasurement): Mono<Void> =
+        exists(measurementId = id)
+            .flatMap { exists ->
+                when {
+                    exists -> updateMeasurement(id, measurement)
+                    else -> insertMeasurement(measurement)
+                }
+            }
 }
 
 private fun BsonDocument.parseMeasurement(): CarbonMeasurement =
