@@ -16,7 +16,20 @@ Content-Type: application/json
 Authorization: Bearer {{static-auth-token}}
 
 {
-  "co2Kg": 6.42,
+  "id": "test-update-measurement-id",
+  "co2Kg": 42,
   "dt": "2022-11-27T11:00:01.759Z",
   "inputDescription": "kurwa"
+}
+
+
+### update measurement
+PUT {{carbonlog-host}}/carbon-logs/measurements/test-update-measurement-id
+Content-Type: application/json
+Authorization: Bearer {{static-auth-token}}
+
+{
+  "co2Kg": 6.66,
+  "dt": "2023-11-27T11:00:01.759Z",
+  "inputDescription": "kurwa updated"
 }

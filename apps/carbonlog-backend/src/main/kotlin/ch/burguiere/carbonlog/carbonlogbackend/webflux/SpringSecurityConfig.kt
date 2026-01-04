@@ -55,9 +55,7 @@ class StaticBearerTokenFilter(val staticToken: String) : WebFilter {
 
 @EnableWebFluxSecurity
 @Configuration
-open class SpringSecurityConfig(
-    @param:Value($$"${static.auth.token}") private val staticToken: String
-) {
+open class SpringSecurityConfig(@param:Value($$"${static.auth.token}") private val staticToken: String) {
 
     @Bean
     open fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain = http
