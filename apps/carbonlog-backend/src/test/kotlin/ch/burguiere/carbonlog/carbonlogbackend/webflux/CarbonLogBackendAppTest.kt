@@ -23,9 +23,11 @@ import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
 import reactor.kotlin.core.publisher.toMono
 import reactor.test.StepVerifier
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
 import java.util.UUID
 
 private val dummyToken = UUID.randomUUID().toString()
@@ -45,6 +47,24 @@ class CarbonLogBackendAppTest {
 
     @Autowired
     private lateinit var measurementsRepository: CarbonMeasurementsRepository
+
+    companion object {
+        @Container
+        var mongoContainer: GenericContainer<*> = GenericContainer(DockerImageName.parse("mongo"))
+            .withExposedPorts(27017)
+
+        @JvmStatic
+        @DynamicPropertySource
+        fun properties(registry: DynamicPropertyRegistry) {
+            registry.add(
+                "mongourl.measurements.url",
+                { "mongodb://${mongoContainer.host}:${mongoContainer.firstMappedPort}" }
+            )
+            registry.add("mongourl.measurements.db-name", { "dummyDB" })
+            registry.add("static.auth.token", { dummyToken })
+            registry.add("cors.allowed.origins", { "http://localhost:4200" })
+        }
+    }
 
     @AfterEach
     fun afterEach() {
@@ -148,6 +168,35 @@ class CarbonLogBackendAppTest {
         assertThat(getMeasurementBody?.inputDescription).isEqualTo("test measurement")
         assertThat(getMeasurementBody?.dt.toString()).isEqualTo("2022-01-01T13:37:00Z")
 
+        val updatedMeasurement = CarbonMeasurement(
+            id = measurement.id,
+            co2Kg = 42.0,
+            dt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
+            inputDescription = "test measurement updated"
+        )
+
+        val putResponse = testClient
+            .put()
+            .uri("http://localhost:$port/carbon-logs/measurements/${measurement.id}")
+            .bodyValue(updatedMeasurement)
+            .header("Authorization", "Bearer $dummyToken")
+            .exchange()
+
+        putResponse.expectStatus().is2xxSuccessful
+
+        val getUpdatedResponse = testClient
+            .get()
+            .uri("http://localhost:$port/carbon-logs/measurements/${measurement.id}")
+            .header("Authorization", "Bearer $dummyToken")
+            .exchange()
+        getUpdatedResponse.expectStatus().is2xxSuccessful
+
+        val updatedBody = getUpdatedResponse.expectBody<CarbonMeasurement>().returnResult().responseBody
+        assertThat(updatedBody?.id).isEqualTo(updatedMeasurement.id)
+        assertThat(updatedBody?.co2Kg).isEqualTo(updatedMeasurement.co2Kg)
+        assertThat(updatedBody?.inputDescription).isEqualTo(updatedMeasurement.inputDescription)
+        assertThat(updatedBody?.dt).isEqualTo(updatedMeasurement.dt)
+
         val deleteResponse = testClient
             .delete()
             .uri("http://localhost:$port/carbon-logs/measurements/${measurement.id}")
@@ -164,23 +213,5 @@ class CarbonLogBackendAppTest {
 
         val getAllBody = getAllResponse.expectBody<List<CarbonMeasurement>>().returnResult().responseBody
         assertThat(getAllBody).isEmpty()
-    }
-
-    companion object {
-        @Container
-        var mongoContainer: GenericContainer<*> = GenericContainer(DockerImageName.parse("mongo"))
-            .withExposedPorts(27017)
-
-        @JvmStatic
-        @DynamicPropertySource
-        fun properties(registry: DynamicPropertyRegistry) {
-            registry.add(
-                "mongourl.measurements.url",
-                { "mongodb://${mongoContainer.host}:${mongoContainer.firstMappedPort}" }
-            )
-            registry.add("mongourl.measurements.db-name", { "dummyDB" })
-            registry.add("static.auth.token", { dummyToken })
-            registry.add("cors.allowed.origins", { "http://localhost:4200" })
-        }
     }
 }

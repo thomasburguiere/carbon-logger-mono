@@ -32,7 +32,7 @@ open class RepoConfig(
             .getCollection(MongoCarbonMeasurementsRepository.collectionName, BsonDocument::class.java)
 
         collection.createIndex(
-            ascending(MongoCarbonMeasurementsRepository.Fields.id.name),
+            ascending(MongoCarbonMeasurementsRepository.Fields.ID),
             IndexOptions().background(true).unique(true)
         ).toMono().block(Duration.ofSeconds(5))
         return MongoCarbonMeasurementsRepository(collection)

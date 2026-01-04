@@ -2,7 +2,13 @@ package ch.burguiere.carbonlog.carbonlogbackend.repository
 
 import ch.burguiere.carbonlog.model.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields
+import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.CO2_KG
+import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.ID
+import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.INPUT_DESCRIPTION
+import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.TIMESTAMP
 import com.mongodb.client.model.Filters.eq
+import com.mongodb.client.model.Updates.combine
+import com.mongodb.client.model.Updates.set
 import com.mongodb.reactivestreams.client.MongoCollection
 import org.bson.BsonDateTime
 import org.bson.BsonDocument
@@ -22,18 +28,18 @@ class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<
         val collectionName = "Measurements"
     }
 
-    enum class Fields {
-        id,
-        co2Kg,
-        timestamp,
-        inputDescription,
+    object Fields {
+        const val ID = "id"
+        const val CO2_KG = "co2Kg"
+        const val TIMESTAMP = "timestamp"
+        const val INPUT_DESCRIPTION = "inputDescription"
     }
 
     override fun getMeasurements(): Flux<CarbonMeasurement> =
         collection.find().toFlux().map(BsonDocument::parseMeasurement)
 
     override fun getMeasurement(id: String): Mono<CarbonMeasurement> = collection
-        .find(eq(Fields.id.name, BsonString(id)))
+        .find(eq(ID, BsonString(id)))
         .toMono()
         .map(BsonDocument::parseMeasurement)
 
@@ -43,29 +49,41 @@ class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<
         .then()
 
     override fun deleteMeasurement(id: String): Mono<Void> = collection
-        .findOneAndDelete(eq(Fields.id.name, BsonString(id)))
+        .findOneAndDelete(eq(ID, BsonString(id)))
         .toMono()
         .then()
+
+    override fun updateMeasurement(id: String, measurement: CarbonMeasurement): Mono<Void> {
+        return collection.findOneAndUpdate(
+            eq(ID, BsonString(id)),
+            combine(
+                set(CO2_KG, BsonDouble(measurement.co2Kg)),
+                set(INPUT_DESCRIPTION, BsonString(measurement.inputDescription)),
+                set(TIMESTAMP, BsonDateTime(measurement.dt.toEpochMilli()))
+            )
+        )
+            .toMono().then()
+    }
 }
 
 private fun BsonDocument.parseMeasurement(): CarbonMeasurement =
     CarbonMeasurement(
-        id = this.getString(Fields.id.name).value,
-        co2Kg = this.getDouble(Fields.co2Kg.name).value,
-        dt = Instant.ofEpochMilli(this.getDateTime(Fields.timestamp.name).value),
+        id = this.getString(ID).value,
+        co2Kg = this.getDouble(CO2_KG).value,
+        dt = Instant.ofEpochMilli(this.getDateTime(TIMESTAMP).value),
         inputDescription = when {
-            this.containsKey(Fields.inputDescription.name) -> this.getString(Fields.inputDescription.name).value
+            this.containsKey(INPUT_DESCRIPTION) -> this.getString(INPUT_DESCRIPTION).value
             else -> null
         }
     )
 
 private fun CarbonMeasurement.toBson(): BsonDocument =
     BsonDocument()
-        .append(Fields.co2Kg.name, BsonDouble(this.co2Kg))
-        .append(Fields.id.name, BsonString(this.id))
-        .append(Fields.timestamp.name, BsonDateTime(this.dt.toEpochMilli()))
+        .append(CO2_KG, BsonDouble(this.co2Kg))
+        .append(ID, BsonString(this.id))
+        .append(TIMESTAMP, BsonDateTime(this.dt.toEpochMilli()))
         .also { bson ->
             if (this.inputDescription != null) {
-                bson.append(Fields.inputDescription.name, BsonString(this.inputDescription))
+                bson.append(INPUT_DESCRIPTION, BsonString(this.inputDescription))
             }
         }
