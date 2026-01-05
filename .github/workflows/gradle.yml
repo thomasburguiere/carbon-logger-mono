@@ -9,8 +9,14 @@ name: Java CI with Gradle
 
 on:
   push:
+    paths:
+      - 'carbon-jdk-code/**'
+      - '.github/workflows/gradle.yml'
     branches: [ "main" ]
   pull_request:
+    paths:
+      - 'carbon-jdk-code/**'
+      - '.github/workflows/gradle.yml'
     branches: [ "main" ]
 
 permissions:
@@ -31,4 +37,5 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v5.0.0
     - name: gradle build
+      working-directory: ./carbon-jdk-code
       run: ./gradlew build
