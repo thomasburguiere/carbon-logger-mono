@@ -1,0 +1,24 @@
+{
+  "name": "carbon-jsts-code",
+  "dependencies": {
+    "@shoelace-style/shoelace": "2.18.0",
+    "@thepassle/app-tools": "0.9.12",
+    "lit": "3.2.1",
+    "urlpattern-polyfill": "10.0.0",
+    "workbox-build": "7.3.0",
+    "workbox-core": "7.3.0",
+    "workbox-precaching": "7.3.0"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "vite": "5.4.11",
+    "vite-plugin-pwa": "0.20.5"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error"
+    }
+  },
+  "packageManager": "pnpm@10.25.0+sha512.5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501"
+}
