@@ -8,10 +8,7 @@ on:
     branches: [ "main" ]
   pull_request:
     paths:
-      - 'carbon-jsts-code/package.json'
-      - 'carbon-jsts-code/pnpm-lock.yaml'
-      - 'carbon-jsts-code/pnpm-workspace.yaml'
-      - 'carbon-jsts-code/.nvmrc'
+      - 'carbon-jsts-code/**'
       - '.github/workflows/node.js.yml'
     branches: [ "main" ]
 
