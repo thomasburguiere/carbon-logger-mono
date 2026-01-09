@@ -1,0 +1,43 @@
+name: Node.js CI
+
+on:
+  push:
+    paths:
+      - 'carbon-jsts-code/**'
+      - '.github/workflows/node.js.yml'
+    branches: [ "main" ]
+  pull_request:
+    paths:
+      - 'carbon-jsts-code/**'
+      - '.github/workflows/node.js.yml'
+    branches: [ "main" ]
+
+defaults:
+  run:
+    working-directory: ./carbon-jsts-code
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v6
+
+    - name: Setup node
+      uses: actions/setup-node@v6
+      with:
+        node-version: '24'
+    - name: setup pnpm
+      uses: 'pnpm/action-setup@v4'
+      with:
+        version: '10.25'
+    - name: install dependencies
+      run: |
+        pnpm i
+    - name: pnpm build
+      run: |
+        pnpm run --if-present -r build
+    - name: pnpm test
+      run: |
+        pnpm run --if-present -r test
