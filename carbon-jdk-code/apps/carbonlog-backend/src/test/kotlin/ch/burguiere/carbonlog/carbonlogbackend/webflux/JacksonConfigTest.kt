@@ -2,6 +2,7 @@ package ch.burguiere.carbonlog.carbonlogbackend.webflux
 
 import ch.burguiere.carbonlog.model.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.json.JacksonConfig
+import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.Instant
@@ -37,8 +38,13 @@ class JacksonConfigTest {
         )
 
         val json = jsonMapper.writeValueAsString(measurement)
-        assertThat(json).isEqualTo(
-            """{"id":"test","co2Kg":6.66,"dt":"2022-11-27T11:00:01.759Z","inputDescription":"comment"}"""
+        assertThatJson(json).isEqualTo(
+            """{
+                    "id": "test",
+                    "co2Kg": 6.66,
+                    "dt": "2022-11-27T11:00:01.759Z",
+                    "inputDescription": "comment"
+                }""".trimIndent()
         )
     }
 }

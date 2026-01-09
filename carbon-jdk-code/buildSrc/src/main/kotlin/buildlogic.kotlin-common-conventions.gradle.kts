@@ -36,6 +36,7 @@ dependencies {
         testImplementation("io.projectreactor:reactor-test:3.8.1")
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
         testImplementation("org.assertj:assertj-core:3.27.6")
+        testImplementation("net.javacrumbs.json-unit:json-unit-assertj:5.1.0")
     }
 
     // Use JUnit Jupiter for testing.
@@ -43,6 +44,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     testImplementation("org.assertj:assertj-core")
+    testImplementation("net.javacrumbs.json-unit:json-unit-assertj")
 
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation ("org.springframework:spring-test")
