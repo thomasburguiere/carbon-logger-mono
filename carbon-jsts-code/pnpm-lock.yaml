@@ -12,8 +12,8 @@ importers:
         specifier: 2.20.1
         version: 2.20.1(@floating-ui/utils@0.2.10)(@types/react@19.2.7)
       '@thepassle/app-tools':
-        specifier: 0.9.12
-        version: 0.9.12
+        specifier: 0.10.0
+        version: 0.10.0
       lit:
         specifier: 3.2.1
         version: 3.2.1
@@ -913,8 +913,8 @@ packages:
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
 
-  '@thepassle/app-tools@0.9.12':
-    resolution: {integrity: sha512-DotnXcPCBT9WOSrIj/OEM4rWmocSHv82V4APMxFm7AQUSXRVYfEtl/oCaFTheyGFq6rL8urhhLskysFV8pmRfw==}
+  '@thepassle/app-tools@0.10.0':
+    resolution: {integrity: sha512-SV72QGdYyGuQUaqvUxao2dY9IwaMqDXZQ7hTMyeBM8mc4XVU8wSsk+BprwzGVdbMMRWzTV8t01M4XIDLIK0OrQ==}
 
   '@types/estree@0.0.39':
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
@@ -2790,7 +2790,7 @@ snapshots:
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.12
 
-  '@thepassle/app-tools@0.9.12': {}
+  '@thepassle/app-tools@0.10.0': {}
 
   '@types/estree@0.0.39': {}
 
