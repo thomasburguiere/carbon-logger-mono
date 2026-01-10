@@ -2,6 +2,13 @@ name: Deploy Carbon Frontend to GitHub Pages
 
 on:
   workflow_dispatch:
+  
+  push:
+    paths:
+      - 'carbon-jsts-code/**'
+      - '.github/workflows/node.js.yml'
+      - '.github/workflows/deploy-frontend-gh-pages.yml'
+    branches: [ "main" ]
 
 defaults:
   run:
