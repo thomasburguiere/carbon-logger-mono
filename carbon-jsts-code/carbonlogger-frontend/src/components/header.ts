@@ -5,7 +5,7 @@ import { resolveRouterPath } from '../router';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 @customElement('app-header')
 export class AppHeader extends LitElement {
-  @property({ type: String }) title = 'carbonlogger-frontend';
+  @property({ type: String }) title = 'Carbon Logger';
 
   @property({ type: Boolean}) enableBack: boolean = false;
 
