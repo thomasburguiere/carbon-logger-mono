@@ -10,6 +10,12 @@ on:
       - '.github/workflows/deploy-frontend-gh-pages.yml'
     branches: [ "main" ]
 
+  workflow_run:
+    workflows: ["Node.js CI"]
+    branches: [ "main" ]
+    types:
+      - completed
+
 defaults:
   run:
     working-directory: ./carbon-jsts-code/carbonlogger-frontend
