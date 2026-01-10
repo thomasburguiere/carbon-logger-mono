@@ -28,9 +28,6 @@ jobs:
         working-directory: ./carbon-jsts-code
         run: pnpm install
 
-      - name: Rewrite Manifest Path in Index
-        run: sed -i 's@/manifest.json@${{ github.event.repository.name }}/manifest.json@g' ./index.html && cat index.html
-
       - name: Rewrite Service Worker Path in Index
         run: sed -i 's@/sw.js@${{ github.event.repository.name }}/sw.js@g' ./index.html && cat ./index.html
 
@@ -38,15 +35,11 @@ jobs:
         run: sed -i 's@"/"@"/${{ github.event.repository.name }}/"@g' ./public/manifest.json && cat ./public/manifest.json
 
       - name: Vite Build
-        run: pnpm run build -- --base=/${{ github.event.repository.name }}/
+        run: pnpm run build --base=/${{ github.event.repository.name }}/
 
-      - name: Fix links in built Index
+      - name: Rewrite Manifest Path in built Index
         working-directory: ./carbon-jsts-code/carbonlogger-frontend/dist
-        run: >
-         sed -i 's@/code@/${{ github.event.repository.name }}/code@g' ./index.html && 
-         sed -i 's@/assets@/${{ github.event.repository.name }}/assets@g' ./index.html && 
-         sed -i 's@manifest.json@${{ github.event.repository.name }}/manifest.json@g' ./index.html && 
-         cat ./index.html
+        run: sed -i 's@manifest.json@${{ github.event.repository.name }}/manifest.json@g' ./index.html && cat index.html
 
       - name: Redirect 404 to Index for SPA
         run: cp dist/index.html dist/404.html
