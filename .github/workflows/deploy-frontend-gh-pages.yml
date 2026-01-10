@@ -19,6 +19,11 @@ jobs:
         with:
           node-version: '16.13'
 
+      - name: setup pnpm
+        uses: 'pnpm/action-setup@v4'
+        with:
+          version: '10.28'
+
       - name: Install Dependencies
         working-directory: ./carbon-jsts-code
         run: pnpm install
