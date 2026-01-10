@@ -1,4 +1,4 @@
-name: Deploy PWA Starter to GitHub Pages
+name: Deploy Carbon Frontend to GitHub Pages
 
 on:
   workflow_dispatch:
@@ -46,7 +46,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist/
+          path: carbon-jsts-code/carbonlogger-frontend/dist/
 
   deploy:
     needs: build
