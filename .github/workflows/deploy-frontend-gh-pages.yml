@@ -40,8 +40,15 @@ jobs:
       - name: Vite Build
         run: pnpm run build -- --base=/${{ github.event.repository.name }}/
 
+      - name: Fix links in built Index
+        working-directory: ./carbon-jsts-code/carbonlogger-frontend/dist
+        run: sed -i 's@/code@/${{ github.event.repository.name }}/code@g' ./index.html && cat ./index.html
+
       - name: Redirect 404 to Index for SPA
         run: cp dist/index.html dist/404.html
+
+      - name: kurwa debug index.html
+        run: cat dist/index.html
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v4
