@@ -33,7 +33,7 @@ dependencies {
         implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.0")
         implementation("tools.jackson.module:jackson-module-kotlin:3.0.3")
         implementation("org.mongodb:mongodb-driver-reactivestreams:5.6.2")
-        testImplementation("io.projectreactor:reactor-test:3.8.1")
+        testImplementation("io.projectreactor:reactor-test:3.8.2")
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
         testImplementation("org.assertj:assertj-core:3.27.6")
         testImplementation("net.javacrumbs.json-unit:json-unit-assertj:5.1.0")
