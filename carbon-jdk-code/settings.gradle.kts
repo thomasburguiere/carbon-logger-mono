@@ -10,7 +10,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "carbonlogger"
+rootProject.name = "carbon-jdk-code"
 include(
     "apps:carbonlog-backend",
     "libs:carbonlog-model",
