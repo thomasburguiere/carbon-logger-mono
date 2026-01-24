@@ -134,15 +134,17 @@ class CarbonLogBackendAppTest {
 
     @Test
     fun `should CRUD measurement`() {
-        val measurement = CarbonMeasurement(
-            id = "testMeasurementId",
-            co2Kg = 6.66,
-            dt = ZonedDateTime.of(
-                LocalDateTime.of(2022, 1, 1, 13, 37),
-                ZoneId.of("UTC")
-            ).toInstant(),
-            inputDescription = "test measurement"
-        )
+        val measurement = CarbonMeasurement.Builder()
+            .id("testMeasurementId")
+            .co2Kg(6.66)
+            .dt(
+                ZonedDateTime.of(
+                    LocalDateTime.of(2022, 1, 1, 13, 37),
+                    ZoneId.of("UTC")
+                ).toInstant()
+            )
+            .inputDescription("test measurement")
+            .build()
 
         val postResponse = testClient
             .post()
@@ -165,15 +167,15 @@ class CarbonLogBackendAppTest {
 
         assertThat(getMeasurementBody?.id).isEqualTo(measurement.id)
         assertThat(getMeasurementBody?.co2Kg).isEqualTo(6.66)
-        assertThat(getMeasurementBody?.inputDescription).isEqualTo("test measurement")
+        assertThat(getMeasurementBody?.inputDescription?.get()).isEqualTo("test measurement")
         assertThat(getMeasurementBody?.dt.toString()).isEqualTo("2022-01-01T13:37:00Z")
 
-        val updatedMeasurement = CarbonMeasurement(
-            id = measurement.id,
-            co2Kg = 42.0,
-            dt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            inputDescription = "test measurement updated"
-        )
+        val updatedMeasurement = CarbonMeasurement.Builder()
+            .id(measurement.id)
+            .co2Kg(42.0)
+            .dt(Instant.now().truncatedTo(ChronoUnit.MILLIS))
+            .inputDescription("test measurement updated")
+            .build()
 
         val putResponse = testClient
             .put()

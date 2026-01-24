@@ -5,6 +5,7 @@
 
 val springCoreVersion: String  = "7.0.3"
 val springBootVersion: String = "4.0.2"
+val immutablesVersion: String = "2.12.1"
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
@@ -37,6 +38,9 @@ dependencies {
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
         testImplementation("org.assertj:assertj-core:3.27.6")
         testImplementation("net.javacrumbs.json-unit:json-unit-assertj:5.1.0")
+
+        annotationProcessor("org.immutables:value:$immutablesVersion")
+        compileOnly("org.immutables:value:$immutablesVersion")
     }
 
     // Use JUnit Jupiter for testing.
@@ -49,6 +53,9 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation ("org.springframework:spring-test")
     testImplementation("io.projectreactor:reactor-test")
+
+    annotationProcessor("org.immutables:value")
+    compileOnly("org.immutables:value")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

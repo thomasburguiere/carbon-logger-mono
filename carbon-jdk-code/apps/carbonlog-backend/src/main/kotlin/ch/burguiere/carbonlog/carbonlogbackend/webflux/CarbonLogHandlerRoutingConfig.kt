@@ -85,10 +85,11 @@ open class CarbonLogHandlerRoutingConfig(
                     .badRequest()
                     .bodyValue(msg)
             }
-            val measurement = CarbonMeasurement(
-                co2Kg = co2Kg,
-                dt = Instant.now()
-            )
+            val measurement = CarbonMeasurement.Builder()
+                .co2Kg(co2Kg)
+                .dt(Instant.now())
+                .build()
+
             insertMeasurementAndReturn201(measurement)
         }
     }

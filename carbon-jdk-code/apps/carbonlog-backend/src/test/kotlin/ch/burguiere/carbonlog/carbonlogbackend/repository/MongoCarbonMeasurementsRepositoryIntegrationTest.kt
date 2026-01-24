@@ -20,6 +20,7 @@ import reactor.kotlin.core.publisher.toMono
 import reactor.test.StepVerifier
 import java.time.Instant
 import java.time.temporal.ChronoUnit
+import java.util.Optional
 
 @Testcontainers
 @ExtendWith(SpringExtension::class)
@@ -67,16 +68,16 @@ class MongoCarbonMeasurementsRepositoryIntegrationTest {
 
     @Test
     fun `should prevent creation of measurements with same id`() {
-        val measurement1 = CarbonMeasurement(
-            id = "duplicateId",
-            co2Kg = 3.33,
-            dt = Instant.now()
-        )
-        val measurement2 = CarbonMeasurement(
-            id = "duplicateId",
-            co2Kg = 6.66,
-            dt = Instant.now()
-        )
+        val measurement1 = CarbonMeasurement.Builder()
+            .id("duplicateId")
+            .co2Kg(3.33)
+            .dt(Instant.now())
+            .build()
+        val measurement2 = CarbonMeasurement.Builder()
+            .id("duplicateId")
+            .co2Kg(6.66)
+            .dt(Instant.now())
+            .build()
 
         StepVerifier.create(repo.insertMeasurement(measurement1))
             .verifyComplete()
@@ -90,11 +91,11 @@ class MongoCarbonMeasurementsRepositoryIntegrationTest {
 
     @Test
     fun `should delete`() {
-        val measurement1 = CarbonMeasurement(
-            id = "duplicateId",
-            co2Kg = 3.33,
-            dt = Instant.now()
-        )
+        val measurement1 = CarbonMeasurement.Builder()
+            .id("duplicateId")
+            .co2Kg(3.33)
+            .dt(Instant.now())
+            .build()
 
         StepVerifier.create(repo.insertMeasurement(measurement1))
             .verifyComplete()
@@ -113,39 +114,43 @@ class MongoCarbonMeasurementsRepositoryIntegrationTest {
 
     @Test
     fun `should update, allowing passing of null description`() {
-        val measurement = CarbonMeasurement(
-            id = "updated-measurement-id",
-            co2Kg = 3.33,
-            dt = Instant.now(),
-            inputDescription = "to be nulled"
-        )
+        val measurement = CarbonMeasurement.Builder()
+            .id("updated-measurement-id")
+            .co2Kg(3.33)
+            .dt(Instant.now())
+            .inputDescription("to be nulled")
+            .build()
 
         StepVerifier.create(repo.insertMeasurement(measurement)).verifyComplete()
 
         // when
-        StepVerifier.create (repo.updateMeasurement(measurement.id, CarbonMeasurement(
-            id = measurement.id,
-            co2Kg = measurement.co2Kg,
-            dt = measurement.dt,
-            inputDescription = null
-        )))
+        StepVerifier.create(
+            repo.updateMeasurement(
+                measurement.id, CarbonMeasurement.Builder()
+                    .id(measurement.id)
+                    .co2Kg(measurement.co2Kg)
+                    .dt(measurement.dt)
+                    .inputDescription(Optional.empty())
+                    .build()
+            )
+        )
             .verifyComplete()
         // then
         StepVerifier.create(repo.getMeasurement(measurement.id))
             .assertNext { measurement ->
-                assertThat(measurement.inputDescription).isNull()
+                assertThat(measurement.inputDescription).isEmpty()
             }
             .verifyComplete()
     }
 
     @Test
     fun `should create measurement when upserting, if it doesnt exist`() {
-        val measurement = CarbonMeasurement(
-            id = "upserted-measurement-id",
-            co2Kg = 3.33,
-            dt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            inputDescription = "to be nulled"
-        )
+        val measurement = CarbonMeasurement.Builder()
+            .id("upserted-measurement-id")
+            .co2Kg(3.33)
+            .dt(Instant.now().truncatedTo(ChronoUnit.MILLIS))
+            .inputDescription("to be nulled")
+            .build()
         StepVerifier.create(repo.getMeasurements().collectList())
             .assertNext { it.isEmpty() }
             .verifyComplete()
@@ -163,12 +168,12 @@ class MongoCarbonMeasurementsRepositoryIntegrationTest {
 
     @Test
     fun `should update measurement when upserting, if it already exists`() {
-        val measurement = CarbonMeasurement(
-            id = "upserted-measurement-id",
-            co2Kg = 3.33,
-            dt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            inputDescription = "to be nulled"
-        )
+        val measurement = CarbonMeasurement.Builder()
+            .id("upserted-measurement-id")
+            .co2Kg(3.33)
+            .dt(Instant.now().truncatedTo(ChronoUnit.MILLIS))
+            .inputDescription("to be nulled")
+            .build()
         val insertAndList = repo.insertMeasurement(measurement).then(repo.getMeasurements().collectList())
         StepVerifier.create(insertAndList)
             .assertNext {
@@ -178,12 +183,12 @@ class MongoCarbonMeasurementsRepositoryIntegrationTest {
             .verifyComplete()
 
         // when
-        val updated = CarbonMeasurement(
-            id = measurement.id,
-            co2Kg = 6.66,
-            dt = measurement.dt,
-            inputDescription = null
-        )
+        val updated = CarbonMeasurement.Builder()
+            .id(measurement.id)
+            .co2Kg(6.66)
+            .dt(measurement.dt)
+            .inputDescription(Optional.empty())
+            .build()
 
         StepVerifier.create(repo.upsertMeasurement(measurement.id, updated)).verifyComplete()
 

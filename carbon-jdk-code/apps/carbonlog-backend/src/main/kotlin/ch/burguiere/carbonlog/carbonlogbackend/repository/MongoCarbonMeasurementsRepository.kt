@@ -19,6 +19,7 @@ import reactor.core.publisher.Mono
 import reactor.kotlin.core.publisher.toFlux
 import reactor.kotlin.core.publisher.toMono
 import java.time.Instant
+import java.util.Optional
 
 class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<BsonDocument>) :
     CarbonMeasurementsRepository {
@@ -59,8 +60,8 @@ class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<
             combine(
                 set(CO2_KG, BsonDouble(measurement.co2Kg)),
                 set(TIMESTAMP, BsonDateTime(measurement.dt.toEpochMilli())),
-                when (measurement.inputDescription != null) {
-                    true -> set(INPUT_DESCRIPTION, BsonString(measurement.inputDescription))
+                when (!measurement.inputDescription.isEmpty) {
+                    true -> set(INPUT_DESCRIPTION, BsonString(measurement.inputDescription.get()))
                     else -> set(INPUT_DESCRIPTION, BsonNull())
                 },
             )
@@ -83,16 +84,24 @@ class MongoCarbonMeasurementsRepository(private val collection: MongoCollection<
             }
 }
 
-private fun BsonDocument.parseMeasurement(): CarbonMeasurement =
-    CarbonMeasurement(
-        id = this.getString(ID).value,
-        co2Kg = this.getDouble(CO2_KG).value,
-        dt = Instant.ofEpochMilli(this.getDateTime(TIMESTAMP).value),
-        inputDescription = when {
-            this.containsKey(INPUT_DESCRIPTION) && !this.isNull(INPUT_DESCRIPTION) -> this.getString(INPUT_DESCRIPTION).value
-            else -> null
-        }
-    )
+private fun BsonDocument.parseMeasurement(): CarbonMeasurement {
+
+    val description: Optional<String> = when {
+        this.containsKey(INPUT_DESCRIPTION) && !this.isNull(INPUT_DESCRIPTION) -> Optional.of(
+            this.getString(
+                INPUT_DESCRIPTION
+            ).value
+        )
+        else -> Optional.empty()
+    }
+
+    return CarbonMeasurement.Builder()
+        .id(this.getString(ID).value)
+        .co2Kg(this.getDouble(CO2_KG).value)
+        .dt(Instant.ofEpochMilli(this.getDateTime(TIMESTAMP).value))
+        .inputDescription(description)
+        .build()
+}
 
 private fun CarbonMeasurement.toBson(): BsonDocument =
     BsonDocument()
@@ -100,7 +109,7 @@ private fun CarbonMeasurement.toBson(): BsonDocument =
         .append(ID, BsonString(this.id))
         .append(TIMESTAMP, BsonDateTime(this.dt.toEpochMilli()))
         .also { bson ->
-            if (this.inputDescription != null) {
-                bson.append(INPUT_DESCRIPTION, BsonString(this.inputDescription))
+            if (!this.inputDescription.isEmpty) {
+                bson.append(INPUT_DESCRIPTION, BsonString(this.inputDescription.get()))
             }
         }
