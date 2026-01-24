@@ -91,10 +91,11 @@ export class AppStorage extends LitElement {
         <h2>Storage Page</h2>
 
         <p>DB Status: ${this.message}</p>
-      <button @click=${this.storeData} ?disabled=${!this.db}>
-        Store Data in IndexedDB
-      </button>
+        <button @click=${this.storeData} ?disabled=${!this.db}>
+          Store Data in IndexedDB
+        </button>
       </main>`;
   }
 }
+
 
