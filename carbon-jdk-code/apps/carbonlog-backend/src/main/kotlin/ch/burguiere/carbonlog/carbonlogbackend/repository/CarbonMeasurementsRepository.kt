@@ -1,6 +1,6 @@
 package ch.burguiere.carbonlog.carbonlogbackend.repository
 
-import ch.burguiere.carbonlog.model.CarbonMeasurement
+import ch.burguiere.carbonlog.model.jvm.CarbonMeasurement
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
