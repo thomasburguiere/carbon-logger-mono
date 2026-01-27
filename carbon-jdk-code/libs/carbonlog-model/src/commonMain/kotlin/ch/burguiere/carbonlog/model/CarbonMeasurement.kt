@@ -26,18 +26,6 @@ data class CarbonMeasurement(
     override val inputDescription: String? = null
 ) : CoreCarbonMeasurement {
     companion object {
-        fun of(
-            id: String = Uuid.random().toString(),
-            co2Kg: Double,
-            dt: Instant = Clock.System.now(),
-            inputDescription: String? = null
-        ): CarbonMeasurement = CarbonMeasurement(
-            id = id,
-            co2Kg = co2Kg,
-            dtIso = dt.toString(),
-            inputDescription = inputDescription
-        )
-
         fun ofCarbonEquivalent(carbonEquivalent: CarbonEquivalent): CarbonMeasurement =
             CarbonMeasurement(
                 id = Uuid.random().toString(),
@@ -46,3 +34,48 @@ data class CarbonMeasurement(
             )
     }
 }
+
+@JsExport
+data class CarbonMeasurementBuilder(
+    var internalId: String? = null,
+    var internalCo2Kg: Double? = null,
+    var internalDtIso: String? = null,
+    var internalInputDescription: String? = null
+) {
+    fun id(id: String) = apply { this.internalId = id }
+    fun co2Kg(co2Kg: Double) = apply { this.internalCo2Kg = co2Kg }
+    fun dtIso(dtIso: String) = apply { this.internalDtIso = dtIso }
+    fun inputDescription(inputDescription: String) = apply { this.internalInputDescription = inputDescription }
+
+
+    fun build(): CarbonMeasurement {
+        if(internalId == null) {
+            error("builder.id cannot be null")
+        }
+        if(internalCo2Kg == null) {
+            error("builder.co2Kg cannot be null")
+        }
+        if(internalDtIso == null) {
+            error("builder.dtIso cannot be null")
+        }
+        return CarbonMeasurement(
+            id = internalId!!,
+            co2Kg = internalCo2Kg!!,
+            dtIso = internalDtIso!!,
+            inputDescription = internalInputDescription
+        )
+    }
+}
+
+
+fun CarbonMeasurement.Companion.of(
+    id: String = Uuid.random().toString(),
+    co2Kg: Double,
+    dt: Instant = Clock.System.now(),
+    inputDescription: String? = null
+): CarbonMeasurement = CarbonMeasurement(
+    id = id,
+    co2Kg = co2Kg,
+    dtIso = dt.toString(),
+    inputDescription = inputDescription
+)

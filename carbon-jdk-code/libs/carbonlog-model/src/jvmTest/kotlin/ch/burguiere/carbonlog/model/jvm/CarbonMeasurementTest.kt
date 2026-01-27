@@ -3,6 +3,7 @@ package ch.burguiere.carbonlog.model.jvm
 import ch.burguiere.carbonlog.model.converter.CarbonEquivalent
 import ch.burguiere.carbonlog.model.converter.asCarbonEquivalent
 import ch.burguiere.carbonlog.model.jvm.CarbonMeasurement.Companion.ofCarbonEquivalent
+import ch.burguiere.carbonlog.model.of
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import org.assertj.core.api.Assertions.assertThat
