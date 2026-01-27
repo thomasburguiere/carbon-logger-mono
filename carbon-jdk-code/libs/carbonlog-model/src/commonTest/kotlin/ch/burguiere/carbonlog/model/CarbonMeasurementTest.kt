@@ -13,7 +13,7 @@ class CarbonMeasurementTest {
     fun `should create measurement with iso dt field`() {
         val dt = LocalDateTime(2022, 1, 1, 13, 37, 42)
             .toInstant(TimeZone.UTC)
-        val ms = CarbonMeasurement.of(co2Kg = 42.0, dt = dt)
+        val ms = CarbonMeasurementBuilder().co2Kg(42.0).dt(dt).build()
 
         assertEquals(ms.dtIso, "2022-01-01T13:37:42Z")
     }

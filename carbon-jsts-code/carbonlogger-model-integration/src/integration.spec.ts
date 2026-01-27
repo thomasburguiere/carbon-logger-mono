@@ -1,8 +1,8 @@
 import {
+    asCarbonEquivalent,
     CarbonEquivalent,
     CarbonLog,
     CarbonMeasurement,
-    asCarbonEquivalent,
     CarbonMeasurementBuilder,
 } from "carbonlog-model";
 
@@ -20,15 +20,23 @@ describe('Carbon Model Integration Tests', () => {
         });
 
         describe('CarbonMeasurementBuilder', () => {
-            it('should fail when missing id', () => {
-                expect(() => new CarbonMeasurementBuilder().build()).toThrow("builder.id cannot be null")
-            })
+
             it('should fail when missing co2Kg', () => {
                 expect(() => new CarbonMeasurementBuilder().id("id").build()).toThrow("builder.co2Kg cannot be null")
             })
-            it('should fail when missing dtIso', () => {
-                expect(() => new CarbonMeasurementBuilder().id("id").co2Kg(1).build()).toThrow("builder.dtIso cannot be null")
-            })
+            it('should build with default id and dtIso', () => {
+                const dateIsoBefore = (new Date()).toISOString()
+                const ms: CarbonMeasurement = new CarbonMeasurementBuilder().co2Kg(1).build()
+                const dateIsoAfter = (new Date()).toISOString()
+
+                expect(ms.id).not.toBeFalsy()
+                expect(ms.id.length).toBeGreaterThan(0)
+
+                expect(ms.dtIso).not.toBeFalsy()
+                expect(ms.dtIso.length).toBeGreaterThan(0)
+                expect(ms.dtIso >= dateIsoBefore).toBe(true)
+                expect(ms.dtIso <= dateIsoAfter).toBe(true)
+            });
         })
     });
 

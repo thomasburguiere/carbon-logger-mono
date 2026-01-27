@@ -49,24 +49,20 @@ data class CarbonMeasurementBuilder(
 
 
     fun build(): CarbonMeasurement {
-        if(internalId == null) {
-            error("builder.id cannot be null")
-        }
         if(internalCo2Kg == null) {
             error("builder.co2Kg cannot be null")
         }
-        if(internalDtIso == null) {
-            error("builder.dtIso cannot be null")
-        }
         return CarbonMeasurement(
-            id = internalId!!,
+            id = internalId ?: Uuid.random().toString(),
             co2Kg = internalCo2Kg!!,
-            dtIso = internalDtIso!!,
+            dtIso = internalDtIso ?: Clock.System.now().toString(),
             inputDescription = internalInputDescription
         )
     }
+
 }
 
+fun CarbonMeasurementBuilder.dt(dt: Instant) = apply { this.internalDtIso = dt.toString() }
 
 fun CarbonMeasurement.Companion.of(
     id: String = Uuid.random().toString(),

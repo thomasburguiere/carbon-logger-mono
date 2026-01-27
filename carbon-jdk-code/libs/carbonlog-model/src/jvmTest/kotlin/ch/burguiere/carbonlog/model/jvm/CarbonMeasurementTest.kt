@@ -2,8 +2,8 @@ package ch.burguiere.carbonlog.model.jvm
 
 import ch.burguiere.carbonlog.model.converter.CarbonEquivalent
 import ch.burguiere.carbonlog.model.converter.asCarbonEquivalent
+import ch.burguiere.carbonlog.model.dt
 import ch.burguiere.carbonlog.model.jvm.CarbonMeasurement.Companion.ofCarbonEquivalent
-import ch.burguiere.carbonlog.model.of
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import org.assertj.core.api.Assertions.assertThat
@@ -31,7 +31,7 @@ class CarbonMeasurementJvmTest {
             .toInstant(TimeZone.UTC)
 
 
-        val commonMs = ch.burguiere.carbonlog.model.CarbonMeasurement.of(co2Kg = 42.0, dt = dt)
+        val commonMs = ch.burguiere.carbonlog.model.CarbonMeasurementBuilder().co2Kg(42.0).dt(dt).build()
 
         val ms: CarbonMeasurement = CarbonMeasurement.ofCommonCarbonMeasurement(commonMs)
 
