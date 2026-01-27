@@ -8,6 +8,7 @@ on:
       - 'carbon-jsts-code/**'
       - '.github/workflows/node.js.yml'
       - '.github/workflows/deploy-frontend-gh-pages.yml'
+      - 'carbon-jdk-code/libs/carbonlog-model/**'
     branches: [ "main" ]
 
   workflow_run:

@@ -2,7 +2,6 @@
 
 package ch.burguiere.carbonlog.model
 
-import ch.burguiere.carbonlog.model.CarbonMeasurement
 import ch.burguiere.carbonlog.model.converter.CarbonEquivalent
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
