@@ -11,7 +11,7 @@ on:
       - 'carbon-jdk-code/**'
       - '.github/workflows/gradle.yml'
     branches: [ "main" ]
-  
+
 permissions:
   contents: read
 
