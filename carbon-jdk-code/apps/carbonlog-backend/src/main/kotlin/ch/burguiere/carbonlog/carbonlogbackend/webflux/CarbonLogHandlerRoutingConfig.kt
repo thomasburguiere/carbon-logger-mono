@@ -1,6 +1,6 @@
 package ch.burguiere.carbonlog.carbonlogbackend.webflux
 
-import ch.burguiere.carbonlog.model.CarbonMeasurement
+import ch.burguiere.carbonlog.model.jvm.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus.CREATED
-import org.springframework.http.HttpStatus.UNAUTHORIZED
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.RouterFunction
-import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyToMono
 import org.springframework.web.reactive.function.server.router

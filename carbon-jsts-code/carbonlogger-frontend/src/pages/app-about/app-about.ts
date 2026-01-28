@@ -8,6 +8,7 @@ import { styles } from './about-styles';
 import { styles as sharedStyles } from '../../styles/shared-styles'
 
 import '@shoelace-style/shoelace/dist/components/card/card.js';
+import { CarbonMeasurement, CarbonMeasurementBuilder } from 'carbonlog-model';
 
 @customElement('app-about')
 export class AppAbout extends LitElement {
@@ -16,20 +17,26 @@ export class AppAbout extends LitElement {
     styles
   ]
 
+  measurement: CarbonMeasurement = new CarbonMeasurementBuilder().co2Kg(42.0).build()
+
   render() {
     return html`
       <app-header ?enableBack="${true}"></app-header>
 
       <main>
-        <h2>About Page</h2>
+        <h2>About Carbon Page</h2>
 
         <sl-card>
-          <h2>Did you know?</h2>
+          <h2>PoC Carbon Model integration</h2>
 
-          <p>PWAs have access to many useful APIs in modern browsers! These
-            APIs have enabled many new types of apps that can be built as PWAs, such as advanced graphics editing apps, games,
-            apps that use machine learning and more!
-          </p>
+          <p>Here's my current CarbonMeasurement:</p>
+          <pre><code>
+          {
+            "id": ${this.measurement.id},
+            "co2Kg": ${this.measurement.co2Kg},
+            "dtIso": ${this.measurement.dtIso}
+          }
+          </code></pre>
 
           <p>Check out <a
               href="https://docs.microsoft.com/en-us/microsoft-edge/progressive-web-apps-chromium/how-to/handle-files">these

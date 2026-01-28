@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev-server": "vite --open",
-    "dev": "pnpm dev-server",
+    "dev": "pnpm run dev-server",
     "dev-task": "vite",
     "deploy": "pnpx @azure/static-web-apps-cli login --no-use-keychain && npx @azure/static-web-apps-cli deploy",
     "build": "tsc && vite build",
-    "start": "pnpm dev",
+    "start": "pnpm run dev",
     "start-remote": "vite --host"
   },
   "author": "",

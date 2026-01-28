@@ -2,10 +2,13 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
-kotlin-version = "2.2.20"
+kotlin-version = "2.3.0"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-version" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin-version" }
+assertj-core = { module = "org.assertj:assertj-core", version = "3.27.7" }
 
 [plugins]
 kotlin-spring-plugin = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin-version" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-version" }

@@ -1,6 +1,6 @@
 package ch.burguiere.carbonlog.carbonlogbackend.repository
 
-import ch.burguiere.carbonlog.model.CarbonMeasurement
+import ch.burguiere.carbonlog.model.jvm.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.CO2_KG
 import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.ID
 import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository.Fields.INPUT_DESCRIPTION
