@@ -1,6 +1,6 @@
 package ch.burguiere.carbonlog.carbonlogbackend.webflux
 
-import ch.burguiere.carbonlog.model.CarbonMeasurement
+import ch.burguiere.carbonlog.model.jvm.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.json.JacksonConfig
 import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
 import org.assertj.core.api.Assertions.assertThat

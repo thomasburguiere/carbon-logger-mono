@@ -1,6 +1,6 @@
 package ch.burguiere.carbonlog.carbonlogbackend.webflux
 
-import ch.burguiere.carbonlog.model.CarbonMeasurement
+import ch.burguiere.carbonlog.model.jvm.CarbonMeasurement
 import ch.burguiere.carbonlog.carbonlogbackend.repository.CarbonMeasurementsRepository
 import ch.burguiere.carbonlog.carbonlogbackend.repository.MongoCarbonMeasurementsRepository
 import com.mongodb.reactivestreams.client.MongoDatabase
