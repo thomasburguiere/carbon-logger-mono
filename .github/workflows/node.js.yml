@@ -5,12 +5,14 @@ on:
     paths:
       - 'carbon-jsts-code/**'
       - 'carbon-jdk-code/libs/carbonlog-model/**'
+      - '.github/workflows/gradle-build-model.yml'
       - '.github/workflows/node.js.yml'
     branches: [ "main" ]
   pull_request:
     paths:
       - 'carbon-jsts-code/**'
       - 'carbon-jdk-code/libs/carbonlog-model/**'
+      - '.github/workflows/gradle-build-model.yml'
       - '.github/workflows/node.js.yml'
     branches: [ "main" ]
 
