@@ -21,7 +21,7 @@ jobs:
       working-directory: ./carbon-jdk-code
       run: ./gradlew libs:carbonlog-model:build
     - name: Upload model artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: carbonlog-model-build
         path: carbon-jdk-code/libs/carbonlog-model/build/

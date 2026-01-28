@@ -28,7 +28,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v6
     - name: Download model artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: carbonlog-model-build
         path: carbon-jdk-code/libs/carbonlog-model/build/
