@@ -22,8 +22,13 @@ defaults:
     working-directory: ./carbon-jsts-code/carbonlogger-frontend
 
 jobs:
+
+  build-model:
+    uses: ./.github/workflows/gradle-build-model.yml
+
   build:
     runs-on: ubuntu-latest
+    needs: ['build-model']
 
     steps:
       - uses: actions/checkout@v6
@@ -37,6 +42,12 @@ jobs:
         uses: 'pnpm/action-setup@v4'
         with:
           version: '10.28.1'
+
+      - name: Download model artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: carbonlog-model-build
+          path: carbon-jdk-code/libs/carbonlog-model/build/
 
       - name: Install Dependencies
         working-directory: ./carbon-jsts-code
