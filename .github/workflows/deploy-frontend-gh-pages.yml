@@ -23,12 +23,12 @@ defaults:
 
 jobs:
 
-  build-model:
+  shared-build-model:
     uses: ./.github/workflows/gradle-build-model.yml
 
   build:
     runs-on: ubuntu-latest
-    needs: ['build-model']
+    needs: ['shared-build-model']
 
     steps:
       - uses: actions/checkout@v6
@@ -68,9 +68,6 @@ jobs:
 
       - name: Redirect 404 to Index for SPA
         run: cp dist/index.html dist/404.html
-
-      - name: kurwa debug index.html
-        run: cat dist/index.html
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v4

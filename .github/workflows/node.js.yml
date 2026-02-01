@@ -18,12 +18,12 @@ on:
 
 jobs:
 
-  build-model:
+  shared-build-model:
     uses: ./.github/workflows/gradle-build-model.yml
 
   build:
     runs-on: ubuntu-latest
-    needs: ['build-model']
+    needs: ['shared-build-model']
     steps:
     - name: Check out code
       uses: actions/checkout@v6
