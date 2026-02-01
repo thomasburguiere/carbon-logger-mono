@@ -114,7 +114,11 @@ export class AppHome extends LitElement {
               </li>
 
               <li>
-                <a href="https://lit.dev">lit</a>
+                <a href="https://kotlinlang.org/docs/multiplatform.html">Kotlin Multiplatform</a>
+              </li>
+
+              <li>
+                <a href="https://lit.dev">Lit</a>
               </li>
 
               <li>
