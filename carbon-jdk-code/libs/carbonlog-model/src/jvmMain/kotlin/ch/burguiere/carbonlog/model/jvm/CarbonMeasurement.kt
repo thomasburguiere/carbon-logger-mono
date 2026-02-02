@@ -8,15 +8,15 @@ import java.util.UUID
 data class CarbonMeasurement(
     override val id: String = UUID.randomUUID().toString(),
     override val co2Kg: Double,
-    val dt: Instant,
+    override val dt: Instant,
     override val inputDescription: String? = null
-) : CoreCarbonMeasurement {
+) : CoreCarbonMeasurement<Instant> {
     companion object {
         fun ofCommonCarbonMeasurement(m: ch.burguiere.carbonlog.model.CarbonMeasurement): CarbonMeasurement =
             CarbonMeasurement(
                 id = m.id,
                 co2Kg = m.co2Kg,
-                dt = Instant.parse(m.dtIso),
+                dt = Instant.parse(m.dt),
                 inputDescription = m.inputDescription
             )
 

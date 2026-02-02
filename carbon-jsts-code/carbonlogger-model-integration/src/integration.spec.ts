@@ -24,7 +24,7 @@ describe('Carbon Model Integration Tests', () => {
             it('should fail when missing co2Kg', () => {
                 expect(() => new CarbonMeasurementBuilder().id("id").build()).toThrow("builder.co2Kg cannot be null")
             })
-            it('should build with default id and dtIso', () => {
+            it('should build with default id and dt', () => {
                 const dateIsoBefore = (new Date()).toISOString()
                 const ms: CarbonMeasurement = new CarbonMeasurementBuilder().co2Kg(1).build()
                 const dateIsoAfter = (new Date()).toISOString()
@@ -32,10 +32,10 @@ describe('Carbon Model Integration Tests', () => {
                 expect(ms.id).not.toBeFalsy()
                 expect(ms.id.length).toBeGreaterThan(0)
 
-                expect(ms.dtIso).not.toBeFalsy()
-                expect(ms.dtIso.length).toBeGreaterThan(0)
-                expect(ms.dtIso >= dateIsoBefore).toBe(true)
-                expect(ms.dtIso <= dateIsoAfter).toBe(true)
+                expect(ms.dt).not.toBeFalsy()
+                expect(ms.dt.length).toBeGreaterThan(0)
+                expect(ms.dt >= dateIsoBefore).toBe(true)
+                expect(ms.dt <= dateIsoAfter).toBe(true)
             });
         })
     });
@@ -49,8 +49,8 @@ describe('Carbon Model Integration Tests', () => {
 
         it('should get results when in range', () => {
 
-            const cm2: CarbonMeasurement = new CarbonMeasurementBuilder().id("cm2").co2Kg(2.0).dtIso(date2Iso).build()
-            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dtIso(date3Iso).build()
+            const cm2: CarbonMeasurement = new CarbonMeasurementBuilder().id("cm2").co2Kg(2.0).dt(date2Iso).build()
+            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dt(date3Iso).build()
             const log = new CarbonLog([cm2, cm3])
 
             // when
@@ -61,12 +61,12 @@ describe('Carbon Model Integration Tests', () => {
         });
 
         it('should get results when in range with added data', () => {
-            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dtIso(date2Iso).build()
-            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dtIso(date3Iso).build()
+            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dt(date2Iso).build()
+            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dt(date3Iso).build()
 
             let log = new CarbonLog([cm2, cm3])
 
-            const addedCm = new CarbonMeasurementBuilder().id('added').co2Kg(11.0).dtIso(date2Iso).build()
+            const addedCm = new CarbonMeasurementBuilder().id('added').co2Kg(11.0).dt(date2Iso).build()
 
             log = log.copyAdding(addedCm)
 
@@ -79,8 +79,8 @@ describe('Carbon Model Integration Tests', () => {
 
         it(`should get nothing when outside range`, () => {
             // given
-            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dtIso(date2Iso).build()
-            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dtIso(date3Iso).build()
+            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dt(date2Iso).build()
+            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dt(date3Iso).build()
             const log = new CarbonLog([cm2, cm3])
 
             // when
@@ -95,8 +95,8 @@ describe('Carbon Model Integration Tests', () => {
 
         it(`should get nothing when search range exclusive`, () => {
             // given
-            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dtIso(date2Iso).build()
-            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dtIso(date3Iso).build()
+            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dt(date2Iso).build()
+            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dt(date3Iso).build()
             const log = new CarbonLog([cm2, cm3])
 
             // when
@@ -111,8 +111,8 @@ describe('Carbon Model Integration Tests', () => {
 
         it(`should get result when search range inclusive`, () => {
             // given
-            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dtIso(date2Iso).build()
-            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dtIso(date3Iso).build()
+            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dt(date2Iso).build()
+            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dt(date3Iso).build()
             const log = new CarbonLog([cm2, cm3])
 
             // when
@@ -129,8 +129,8 @@ describe('Carbon Model Integration Tests', () => {
         it(`should get result for current year`, () => {
             // given
             const todayDate = (new Date()).toISOString()
-            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dtIso(todayDate).build()
-            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dtIso(date_2021_iso).build()
+            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dt(todayDate).build()
+            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dt(date_2021_iso).build()
             const log = new CarbonLog([cm2, cm3])
 
             // when
@@ -143,8 +143,8 @@ describe('Carbon Model Integration Tests', () => {
         it(`should get total CO2 Kg`, () => {
             // given
             const todayDate = (new Date()).toISOString()
-            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dtIso(todayDate).build()
-            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dtIso(todayDate).build()
+            const cm2 = new CarbonMeasurementBuilder().id('cm2').co2Kg(2.0).dt(todayDate).build()
+            const cm3 = new CarbonMeasurementBuilder().id('cm3').co2Kg(3.0).dt(todayDate).build()
             const log = new CarbonLog([cm2, cm3])
 
             // when
