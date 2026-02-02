@@ -25,7 +25,7 @@ enum class CO2KgRatios(val ratio: Double) {
 }
 
 @JsExport
-fun CoreCarbonMeasurement.asCarbonEquivalent(): CarbonEquivalent = CarbonEquivalent(this.co2Kg)
+fun <T>CoreCarbonMeasurement<T>.asCarbonEquivalent(): CarbonEquivalent = CarbonEquivalent(this.co2Kg)
 
 @JsExport
 data class CarbonEquivalent(val co2Kg: Double) {

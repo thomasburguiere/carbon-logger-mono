@@ -12,25 +12,18 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @JsExport
-interface CoreCarbonMeasurement {
-    val id: String
-    val co2Kg: Double
-    val inputDescription: String?
-}
-
-@JsExport
 data class CarbonMeasurement(
     override val id: String = Uuid.random().toString(),
     override val co2Kg: Double,
-    val dtIso: String = Clock.System.now().toString(),
+    override val dt: String = Clock.System.now().toString(),
     override val inputDescription: String? = null
-) : CoreCarbonMeasurement {
+) : CoreCarbonMeasurement<String> {
     companion object {
         fun ofCarbonEquivalent(carbonEquivalent: CarbonEquivalent): CarbonMeasurement =
             CarbonMeasurement(
                 id = Uuid.random().toString(),
                 co2Kg = carbonEquivalent.co2Kg,
-                dtIso = Clock.System.now().toString()
+                dt = Clock.System.now().toString()
             )
     }
 }
@@ -44,7 +37,7 @@ data class CarbonMeasurementBuilder(
 ) {
     fun id(id: String) = apply { this.internalId = id }
     fun co2Kg(co2Kg: Double) = apply { this.internalCo2Kg = co2Kg }
-    fun dtIso(dtIso: String) = apply { this.internalDtIso = dtIso }
+    fun dt(dt: String) = apply { this.internalDtIso = dt }
     fun inputDescription(inputDescription: String) = apply { this.internalInputDescription = inputDescription }
 
 
@@ -55,7 +48,7 @@ data class CarbonMeasurementBuilder(
         return CarbonMeasurement(
             id = internalId ?: Uuid.random().toString(),
             co2Kg = internalCo2Kg!!,
-            dtIso = internalDtIso ?: Clock.System.now().toString(),
+            dt = internalDtIso ?: Clock.System.now().toString(),
             inputDescription = internalInputDescription
         )
     }
@@ -72,6 +65,6 @@ fun CarbonMeasurement.Companion.of(
 ): CarbonMeasurement = CarbonMeasurement(
     id = id,
     co2Kg = co2Kg,
-    dtIso = dt.toString(),
+    dt = dt.toString(),
     inputDescription = inputDescription
 )

@@ -26,9 +26,9 @@ data class CarbonLog(val carbonMeasurements: Array<CarbonMeasurement>) {
 
 
         val filter: (cm: CarbonMeasurement) -> Boolean = if (!inclusive) {
-            { cm: CarbonMeasurement -> cm.dt > from && cm.dt < to }
+            { cm: CarbonMeasurement -> cm.dtInstant > from && cm.dtInstant < to }
         } else {
-            { cm: CarbonMeasurement -> cm.dt in from..to }
+            { cm: CarbonMeasurement -> cm.dtInstant in from..to }
         }
 
         val filtered = this.carbonMeasurements.filter(filter)
@@ -58,9 +58,9 @@ data class CarbonLog(val carbonMeasurements: Array<CarbonMeasurement>) {
     }
 }
 
-private val CarbonMeasurement.dt: Instant get() = Instant.parse(this.dtIso)
+private val CarbonMeasurement.dtInstant: Instant get() = Instant.parse(this.dt)
 
-private fun CarbonMeasurement.getYear(timeZone: TimeZone = TimeZone.UTC): Int = dt.toLocalDateTime(timeZone).year
+private fun CarbonMeasurement.getYear(timeZone: TimeZone = TimeZone.UTC): Int = dtInstant.toLocalDateTime(timeZone).year
 
 private fun Array<CarbonMeasurement>.sumCO2Kgs(): Double =
     when {

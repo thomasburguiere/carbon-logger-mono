@@ -34,7 +34,7 @@ export class AppAbout extends LitElement {
           {
             "id": ${this.measurement.id},
             "co2Kg": ${this.measurement.co2Kg},
-            "dtIso": ${this.measurement.dtIso}
+            "dt": ${this.measurement.dt}
           }
           </code></pre>
 
