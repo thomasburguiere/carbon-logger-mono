@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalJsExport::class, ExperimentalUuidApi::class, ExperimentalTime::class)
+@file:OptIn(ExperimentalJsExport::class)
 
 package ch.burguiere.carbonlog.model
 

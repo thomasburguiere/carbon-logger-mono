@@ -32,12 +32,12 @@ data class CarbonMeasurement(
 data class CarbonMeasurementBuilder(
     var internalId: String? = null,
     var internalCo2Kg: Double? = null,
-    var internalDtIso: String? = null,
+    var internalDt: String? = null,
     var internalInputDescription: String? = null
 ) {
     fun id(id: String) = apply { this.internalId = id }
     fun co2Kg(co2Kg: Double) = apply { this.internalCo2Kg = co2Kg }
-    fun dt(dt: String) = apply { this.internalDtIso = dt }
+    fun dt(dt: String) = apply { this.internalDt = dt }
     fun inputDescription(inputDescription: String) = apply { this.internalInputDescription = inputDescription }
 
 
@@ -48,14 +48,14 @@ data class CarbonMeasurementBuilder(
         return CarbonMeasurement(
             id = internalId ?: Uuid.random().toString(),
             co2Kg = internalCo2Kg!!,
-            dt = internalDtIso ?: Clock.System.now().toString(),
+            dt = internalDt ?: Clock.System.now().toString(),
             inputDescription = internalInputDescription
         )
     }
 
 }
 
-fun CarbonMeasurementBuilder.dt(dt: Instant) = apply { this.internalDtIso = dt.toString() }
+fun CarbonMeasurementBuilder.dt(dt: Instant) = apply { this.internalDt = dt.toString() }
 
 fun CarbonMeasurement.Companion.of(
     id: String = Uuid.random().toString(),
