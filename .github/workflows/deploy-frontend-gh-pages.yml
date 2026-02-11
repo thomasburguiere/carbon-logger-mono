@@ -41,7 +41,7 @@ jobs:
       - name: setup pnpm
         uses: 'pnpm/action-setup@v4'
         with:
-          version: '10.29.2'
+          version: '10.29.3'
 
       - name: Download model artifact
         uses: actions/download-artifact@v7
