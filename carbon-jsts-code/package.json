@@ -2,7 +2,7 @@
   "name": "carbon-jsts-code",
   "dependencies": {
     "@shoelace-style/shoelace": "2.20.1",
-    "@thepassle/app-tools": "0.10.0",
+    "@thepassle/app-tools": "0.10.3",
     "carbonlog-model": "file:../carbon-jdk-code/libs/carbonlog-model/build/dist/js/productionLibrary",
     "lit": "3.3.2",
     "lodash": "4.17.23",
