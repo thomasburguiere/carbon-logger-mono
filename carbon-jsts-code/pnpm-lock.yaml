@@ -12,8 +12,8 @@ importers:
         specifier: 2.20.1
         version: 2.20.1(@floating-ui/utils@0.2.10)(@types/react@19.2.7)
       '@thepassle/app-tools':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.10.3
+        version: 0.10.3
       carbonlog-model:
         specifier: file:../carbon-jdk-code/libs/carbonlog-model/build/dist/js/productionLibrary
         version: file:../carbon-jdk-code/libs/carbonlog-model/build/dist/js/productionLibrary
@@ -973,8 +973,8 @@ packages:
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
 
-  '@thepassle/app-tools@0.10.0':
-    resolution: {integrity: sha512-SV72QGdYyGuQUaqvUxao2dY9IwaMqDXZQ7hTMyeBM8mc4XVU8wSsk+BprwzGVdbMMRWzTV8t01M4XIDLIK0OrQ==}
+  '@thepassle/app-tools@0.10.3':
+    resolution: {integrity: sha512-reVMwIAwANFIWhqmuFBGGWDccikrvoUpneFaFYLNeVDFeytuNyf8v4JWc7ZZkB2g55v+H70malari0PI8VZQ4A==}
 
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
@@ -3093,7 +3093,7 @@ snapshots:
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.12
 
-  '@thepassle/app-tools@0.10.0': {}
+  '@thepassle/app-tools@0.10.3': {}
 
   '@types/chai@5.2.3':
     dependencies:
