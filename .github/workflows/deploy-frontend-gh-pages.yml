@@ -44,7 +44,7 @@ jobs:
           version: '10.30.2'
 
       - name: Download model artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: carbonlog-model-build
           path: carbon-jdk-code/libs/carbonlog-model/build/
