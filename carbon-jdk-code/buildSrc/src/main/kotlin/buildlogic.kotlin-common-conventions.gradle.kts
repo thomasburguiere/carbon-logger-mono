@@ -3,8 +3,8 @@
  */
 
 
-val springCoreVersion: String  = "7.0.3"
-val springBootVersion: String = "4.0.2"
+val springCoreVersion: String  = "7.0.5"
+val springBootVersion: String = "4.0.3"
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
@@ -29,18 +29,18 @@ dependencies {
         testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
         testImplementation("org.springframework.boot:spring-boot-webtestclient:${springBootVersion}")
 
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.21.0")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.21.1")
         implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.0")
-        implementation("tools.jackson.module:jackson-module-kotlin:3.0.4")
-        implementation("org.mongodb:mongodb-driver-reactivestreams:5.6.2")
-        testImplementation("io.projectreactor:reactor-test:3.8.2")
+        implementation("tools.jackson.module:jackson-module-kotlin:3.1.0")
+        implementation("org.mongodb:mongodb-driver-reactivestreams:5.6.4")
+        testImplementation("io.projectreactor:reactor-test:3.8.3")
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
         testImplementation("org.assertj:assertj-core:3.27.7")
         testImplementation("net.javacrumbs.json-unit:json-unit-assertj:5.1.0")
     }
 
     // Use JUnit Jupiter for testing.
-    testImplementation("org.junit.jupiter:junit-jupiter:6.0.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     testImplementation("org.assertj:assertj-core")

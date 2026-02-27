@@ -16,12 +16,12 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v5.0.1
+      uses: gradle/actions/setup-gradle@v5.0.2
     - name: gradle build
       working-directory: ./carbon-jdk-code
       run: ./gradlew libs:carbonlog-model:build
     - name: Upload model artifact
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: carbonlog-model-build
         path: carbon-jdk-code/libs/carbonlog-model/build/

@@ -36,15 +36,15 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: '24.13'
+          node-version: '24.14'
 
       - name: setup pnpm
         uses: 'pnpm/action-setup@v4'
         with:
-          version: '10.28.2'
+          version: '10.30.3'
 
       - name: Download model artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: carbonlog-model-build
           path: carbon-jdk-code/libs/carbonlog-model/build/

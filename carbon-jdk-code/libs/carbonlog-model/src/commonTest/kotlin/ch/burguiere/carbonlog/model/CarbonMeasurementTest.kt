@@ -15,7 +15,7 @@ class CarbonMeasurementTest {
             .toInstant(TimeZone.UTC)
         val ms = CarbonMeasurementBuilder().co2Kg(42.0).dt(dt).build()
 
-        assertEquals(ms.dtIso, "2022-01-01T13:37:42Z")
+        assertEquals(ms.dt, "2022-01-01T13:37:42Z")
     }
 
 }

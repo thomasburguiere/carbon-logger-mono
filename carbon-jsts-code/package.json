@@ -2,7 +2,7 @@
   "name": "carbon-jsts-code",
   "dependencies": {
     "@shoelace-style/shoelace": "2.20.1",
-    "@thepassle/app-tools": "0.10.0",
+    "@thepassle/app-tools": "1.1.0",
     "carbonlog-model": "file:../carbon-jdk-code/libs/carbonlog-model/build/dist/js/productionLibrary",
     "lit": "3.3.2",
     "lodash": "4.17.23",
@@ -12,10 +12,12 @@
     "workbox-precaching": "7.4.0"
   },
   "devDependencies": {
-    "vitest": "4.0.18",
+    "@vitest/coverage-v8": "4.0.18",
+    "@vitest/ui": "4.0.18",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vite-plugin-pwa": "1.2.0"
+    "vite-plugin-pwa": "1.2.0",
+    "vitest": "4.0.18"
   },
   "devEngines": {
     "packageManager": {
@@ -23,5 +25,5 @@
       "onFail": "error"
     }
   },
-  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
+  "packageManager": "pnpm@10.30.3"
 }

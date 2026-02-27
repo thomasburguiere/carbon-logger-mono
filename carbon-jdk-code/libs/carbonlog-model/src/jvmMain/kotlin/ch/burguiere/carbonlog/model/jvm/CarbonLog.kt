@@ -1,16 +1,17 @@
 package ch.burguiere.carbonlog.model.jvm
 
+import ch.burguiere.carbonlog.model.CoreCarbonLog
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-data class CarbonLog(val carbonMeasurements: List<CarbonMeasurement>) {
+data class CarbonLog(val carbonMeasurements: List<CarbonMeasurement>): CoreCarbonLog<Instant> {
     fun copyAdding(measurement: CarbonMeasurement) = copyAddingMultiple(measurements = listOf(measurement))
 
     fun copyAddingMultiple(measurements: List<CarbonMeasurement>): CarbonLog =
         CarbonLog(carbonMeasurements = this.carbonMeasurements + measurements)
 
-    fun getRangeCarbonKgs(from: Instant, to: Instant = Instant.now(), inclusive: Boolean = false): Double {
+    override fun getRangeCarbonKgs(from: Instant, to: Instant, inclusive: Boolean): Double {
         val filter: (cm: CarbonMeasurement) -> Boolean = if (!inclusive) {
             { cm: CarbonMeasurement -> cm.dt > from && cm.dt < to }
         } else {
@@ -21,9 +22,9 @@ data class CarbonLog(val carbonMeasurements: List<CarbonMeasurement>) {
         return filtered.sumCO2Kgs()
     }
 
-    fun getTotalCarbonKgs(): Double = carbonMeasurements.sumCO2Kgs()
+    override fun getTotalCarbonKgs(): Double = carbonMeasurements.sumCO2Kgs()
 
-    fun getCurrentYearCarbonKgs(): Double = carbonMeasurements
+    override fun getCurrentYearCarbonKgs(): Double = carbonMeasurements
         .filter { cm: CarbonMeasurement -> cm.getYear() == LocalDate.now().year }
         .sumCO2Kgs()
 }
