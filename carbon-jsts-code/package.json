@@ -5,7 +5,7 @@
     "@thepassle/app-tools": "1.2.0",
     "carbonlog-model": "file:../carbon-jdk-code/libs/carbonlog-model/build/dist/js/productionLibrary",
     "lit": "3.3.2",
-    "lodash": "4.17.23",
+    "lodash": "4.18.1",
     "urlpattern-polyfill": "10.1.0",
     "workbox-build": "7.4.0",
     "workbox-core": "7.4.0",
