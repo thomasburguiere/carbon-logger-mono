@@ -3,7 +3,7 @@
  */
 
 
-val springCoreVersion: String  = "7.0.6"
+val springCoreVersion: String  = "7.0.7"
 val springBootVersion: String = "4.0.5"
 
 plugins {
@@ -31,9 +31,9 @@ dependencies {
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.21.2")
         implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.0")
-        implementation("tools.jackson.module:jackson-module-kotlin:3.1.1")
-        implementation("org.mongodb:mongodb-driver-reactivestreams:5.6.4")
-        testImplementation("io.projectreactor:reactor-test:3.8.4")
+        implementation("tools.jackson.module:jackson-module-kotlin:3.1.2")
+        implementation("org.mongodb:mongodb-driver-reactivestreams:5.6.5")
+        testImplementation("io.projectreactor:reactor-test:3.8.5")
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
         testImplementation("org.assertj:assertj-core:3.27.7")
         testImplementation("net.javacrumbs.json-unit:json-unit-assertj:5.1.1")
