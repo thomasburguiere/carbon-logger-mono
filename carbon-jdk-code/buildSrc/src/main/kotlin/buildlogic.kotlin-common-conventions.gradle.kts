@@ -32,7 +32,7 @@ dependencies {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.0")
         implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.0")
         implementation("tools.jackson.module:jackson-module-kotlin:3.1.4")
-        implementation("org.mongodb:mongodb-driver-reactivestreams:5.7.1")
+        implementation("org.mongodb:mongodb-driver-reactivestreams:5.8.0")
         testImplementation("io.projectreactor:reactor-test:3.8.5")
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
         testImplementation("org.assertj:assertj-core:3.27.7")
