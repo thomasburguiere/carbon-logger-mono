@@ -29,9 +29,9 @@ dependencies {
         testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
         testImplementation("org.springframework.boot:spring-boot-webtestclient:${springBootVersion}")
 
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.21.3")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.0")
         implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.0")
-        implementation("tools.jackson.module:jackson-module-kotlin:3.1.3")
+        implementation("tools.jackson.module:jackson-module-kotlin:3.1.4")
         implementation("org.mongodb:mongodb-driver-reactivestreams:5.7.1")
         testImplementation("io.projectreactor:reactor-test:3.8.5")
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
