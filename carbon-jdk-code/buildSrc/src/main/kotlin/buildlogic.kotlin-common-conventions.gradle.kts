@@ -4,7 +4,7 @@
 
 
 val springCoreVersion: String  = "7.0.8"
-val springBootVersion: String = "4.0.6"
+val springBootVersion: String = "4.1.0"
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
