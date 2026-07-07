@@ -36,7 +36,7 @@ dependencies {
         testImplementation("io.projectreactor:reactor-test:3.8.6")
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
         testImplementation("org.assertj:assertj-core:3.27.7")
-        testImplementation("net.javacrumbs.json-unit:json-unit-assertj:5.1.2")
+        testImplementation("net.javacrumbs.json-unit:json-unit-assertj:6.0.0")
     }
 
     // Use JUnit Jupiter for testing.
