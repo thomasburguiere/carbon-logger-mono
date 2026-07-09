@@ -1,3 +1,5 @@
 packages:
   - 'carbonlogger-frontend'
   - 'carbonlogger-model-integration'
+allowBuilds:
+  esbuild: true
