@@ -3,3 +3,5 @@ packages:
   - 'carbonlogger-model-integration'
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - vite@8.1.4
