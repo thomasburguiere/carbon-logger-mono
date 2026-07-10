@@ -31,7 +31,7 @@ dependencies {
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.1")
         implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.1")
-        implementation("tools.jackson.module:jackson-module-kotlin:3.2.0")
+        implementation("tools.jackson.module:jackson-module-kotlin:3.2.1")
         implementation("org.mongodb:mongodb-driver-reactivestreams:5.9.0")
         testImplementation("io.projectreactor:reactor-test:3.8.6")
         testImplementation("org.testcontainers:junit-jupiter:1.21.4")
