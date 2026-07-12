@@ -3,7 +3,8 @@
  */
 
 
-val springCoreVersion: String  = "7.0.8"
+val springCoreVersion = "7.0.8"
+val springSecurityVersion = "7.1.0"
 val springBootVersion: String = "4.1.0"
 
 plugins {
@@ -21,7 +22,7 @@ dependencies {
         // Define dependency versions as constraints
         implementation("org.springframework:spring-context:$springCoreVersion")
         testImplementation("org.springframework:spring-test:$springCoreVersion")
-        testImplementation("org.springframework.security:spring-security-test:$springCoreVersion")
+        testImplementation("org.springframework.security:spring-security-test:$springSecurityVersion")
 
         implementation("org.springframework.boot:spring-boot-starter-webflux:$springBootVersion")
         implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
