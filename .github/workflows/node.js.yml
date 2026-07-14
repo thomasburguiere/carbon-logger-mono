@@ -33,7 +33,7 @@ jobs:
         name: carbonlog-model-build
         path: carbon-jdk-code/libs/carbonlog-model/build/
     - name: Setup node
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@v7.0.0
       with:
         node-version: '24.18'
     - name: setup pnpm
