@@ -39,7 +39,7 @@ jobs:
     - name: setup pnpm
       uses: 'pnpm/action-setup@v6'
       with:
-        version: '11.13.1'
+        version: '11.14.0'
         node-version: '24.18'
     - name: install dependencies
       working-directory: ./carbon-jsts-code
