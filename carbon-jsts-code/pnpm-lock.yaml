@@ -46,14 +46,14 @@ importers:
         specifier: 7.0.2
         version: 7.0.2
       vite:
-        specifier: 8.1.4
-        version: 8.1.4(terser@5.49.0)
+        specifier: 8.1.5
+        version: 8.1.5(terser@5.49.0)
       vite-plugin-pwa:
         specifier: 1.3.0
-        version: 1.3.0(vite@8.1.4(terser@5.49.0))(workbox-build@7.4.1)(workbox-window@7.4.1)
+        version: 1.3.0(vite@8.1.5(terser@5.49.0))(workbox-build@7.4.1)(workbox-window@7.4.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.1.4(terser@5.49.0))
+        version: 4.1.10(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.1.5(terser@5.49.0))
 
   carbonlogger-frontend: {}
 
@@ -1850,8 +1850,8 @@ packages:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
 
-  postcss@8.5.16:
-    resolution: {integrity: sha512-vuwillviilfKZsg0VGj5R/YwwcHx4SLsIOI/7K6mQkWx+l5cUHTjj5g0AasTBcyXsbfTgrwsUNmVUb5xVwyPwg==}
+  postcss@8.5.19:
+    resolution: {integrity: sha512-Mz8SaolMd8nB+G13WkORcxQKHZ/NE4xXevtkJHVuG+guo9/wYKlIMTKAqGdEmYOXR2ijPjTYNHssizdaVSUNdQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   pretty-bytes@5.6.0:
@@ -2164,8 +2164,8 @@ packages:
       '@vite-pwa/assets-generator':
         optional: true
 
-  vite@8.1.4:
-    resolution: {integrity: sha512-bTT9PsdWO+MQMNG9ZXIP/qM9wGh37DFxTV/sPq9cFpHr3w4jkgef032PkAL9jAqhk3Nz8NQw3O8n6/xFkqO4QQ==}
+  vite@8.1.5:
+    resolution: {integrity: sha512-7ULLwsCdYx/nRyrpiEwvqb5TFHrMVZyBt+rg/OAXT7rgj/z+DtTDyKFeLAdDkubDVDKD8jOsndmy7m55XcfUsw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -3375,7 +3375,7 @@ snapshots:
       obug: 2.1.3
       std-env: 4.2.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.1.4(terser@5.49.0))
+      vitest: 4.1.10(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.1.5(terser@5.49.0))
 
   '@vitest/expect@4.1.10':
     dependencies:
@@ -3386,13 +3386,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.10(vite@8.1.4(terser@5.49.0))':
+  '@vitest/mocker@4.1.10(vite@8.1.5(terser@5.49.0))':
     dependencies:
       '@vitest/spy': 4.1.10
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 8.1.4(terser@5.49.0)
+      vite: 8.1.5(terser@5.49.0)
 
   '@vitest/pretty-format@4.1.10':
     dependencies:
@@ -3421,7 +3421,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.1.4(terser@5.49.0))
+      vitest: 4.1.10(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.1.5(terser@5.49.0))
 
   '@vitest/utils@4.1.10':
     dependencies:
@@ -4165,7 +4165,7 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss@8.5.16:
+  postcss@8.5.19:
     dependencies:
       nanoid: 3.3.15
       picocolors: 1.1.1
@@ -4578,32 +4578,32 @@ snapshots:
 
   urlpattern-polyfill@10.1.0: {}
 
-  vite-plugin-pwa@1.3.0(vite@8.1.4(terser@5.49.0))(workbox-build@7.4.1)(workbox-window@7.4.1):
+  vite-plugin-pwa@1.3.0(vite@8.1.5(terser@5.49.0))(workbox-build@7.4.1)(workbox-window@7.4.1):
     dependencies:
       debug: 4.4.3
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.17
-      vite: 8.1.4(terser@5.49.0)
+      vite: 8.1.5(terser@5.49.0)
       workbox-build: 7.4.1
       workbox-window: 7.4.1
     transitivePeerDependencies:
       - supports-color
 
-  vite@8.1.4(terser@5.49.0):
+  vite@8.1.5(terser@5.49.0):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.5
-      postcss: 8.5.16
+      postcss: 8.5.19
       rolldown: 1.1.5
       tinyglobby: 0.2.17
     optionalDependencies:
       fsevents: 2.3.3
       terser: 5.49.0
 
-  vitest@4.1.10(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.1.4(terser@5.49.0)):
+  vitest@4.1.10(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.1.5(terser@5.49.0)):
     dependencies:
       '@vitest/expect': 4.1.10
-      '@vitest/mocker': 4.1.10(vite@8.1.4(terser@5.49.0))
+      '@vitest/mocker': 4.1.10(vite@8.1.5(terser@5.49.0))
       '@vitest/pretty-format': 4.1.10
       '@vitest/runner': 4.1.10
       '@vitest/snapshot': 4.1.10
@@ -4620,7 +4620,7 @@ snapshots:
       tinyexec: 1.2.4
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.0
-      vite: 8.1.4(terser@5.49.0)
+      vite: 8.1.5(terser@5.49.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@vitest/coverage-v8': 4.1.10(vitest@4.1.10)
