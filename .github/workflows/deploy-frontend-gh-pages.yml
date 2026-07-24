@@ -41,7 +41,7 @@ jobs:
       - name: setup pnpm
         uses: 'pnpm/action-setup@v6'
         with:
-          version: '11.15.0'
+          version: '11.15.1'
 
       - name: Download model artifact
         uses: actions/download-artifact@v8
@@ -70,7 +70,7 @@ jobs:
         run: cp dist/index.html dist/404.html
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: carbon-jsts-code/carbonlogger-frontend/dist/
 

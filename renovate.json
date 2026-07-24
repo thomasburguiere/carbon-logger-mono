@@ -4,5 +4,11 @@
     "config:recommended"
   ],
   "prConcurrentLimit": 20,
-  "assignees": ["thomasburguiere"]
+  "assignees": ["thomasburguiere"],
+  "packageRules": [
+    {
+      "matchDatasources": ["npm"],
+      "minimumReleaseAge": "3 days"
+    }
+  ]
 }
