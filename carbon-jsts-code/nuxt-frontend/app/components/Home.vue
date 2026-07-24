@@ -1,8 +1,8 @@
 <template>
-  <Header title="carbon" :enable-back="true"/>
+  <Header title="carbon" :enable-back="false"/>
   <main>
     <div id="welcomeBar">
-      <sl-card id="welcomeCard">
+      <UCard id="welcomeCard">
         <div slot="header">
           <h2>{{ message }}</h2>
         </div>
@@ -23,15 +23,14 @@
         </p>
 
         <template v-if="hasShare">
-          <sl-button slot="footer" variant="default" @click="share">
-            <sl-icon slot="prefix" name="share"></sl-icon>
+          <UButton slot="footer" variant="default" @click="share">
+            <UIcon slot="prefix" name="share"></UIcon>
             Share this Starter!
-          </sl-button>
+          </UButton>
         </template>
-        : null}
-      </sl-card>
+      </UCard>
 
-      <sl-card id="infoCard">
+      <UCard id="infoCard">
         <h2>Technology Used</h2>
 
         <ul>
@@ -56,9 +55,10 @@
             >App Tools Router</a>
           </li>
         </ul>
-      </sl-card>
+      </UCard>
 
-      <sl-button href="${resolveRouterPath('about')}" variant="primary">Navigate to About Carbon</sl-button>
+
+      <UButton href="/about">Navigate to About Carbon</UButton>
     </div>
   </main>
 </template>

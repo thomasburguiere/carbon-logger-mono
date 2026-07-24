@@ -1,24 +1,26 @@
 {
   "name": "carbon-jsts-code",
   "dependencies": {
+    "@nuxt/ui": "4.10.0",
     "@shoelace-style/shoelace": "2.20.1",
     "@thepassle/app-tools": "1.2.0",
     "carbonlog-model": "file:../carbon-jdk-code/libs/carbonlog-model/build/dist/js/productionLibrary",
     "lit": "3.3.3",
     "lodash": "4.18.1",
+    "nuxt": "4.4.8",
+    "tailwindcss": "4.3.3",
     "urlpattern-polyfill": "10.1.0",
+    "vue": "3.5.39",
+    "vue-router": "5.1.0",
     "workbox-build": "7.4.1",
     "workbox-core": "7.4.1",
-    "workbox-precaching": "7.4.1",
-    "nuxt": "4.4.8",
-    "vue": "3.5.39",
-    "vue-router": "5.1.0"
+    "workbox-precaching": "7.4.1"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "4.1.10",
     "@vitest/ui": "4.1.10",
-    "vite": "8.1.5",
     "typescript": "7.0.2",
+    "vite": "8.1.5",
     "vite-plugin-pwa": "1.3.0",
     "vitest": "4.1.10"
   },
