@@ -66,7 +66,7 @@
 <script lang="ts" setup>
 import Header from "~/components/Header.vue"
 
-const message = "Welcome";
+const message = "Welcome to Carbon Logger";
 
 const hasShare = !!navigator && 'share' in navigator;
 
