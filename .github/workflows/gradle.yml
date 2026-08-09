@@ -16,10 +16,25 @@ permissions:
   contents: read
 
 jobs:
-
-  build:
+  
+  gradle-warmup:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Setup Gradle & warm cache
+        uses: gradle/actions/setup-gradle@v6.3.0
+        with:
+          cache-read-only: false   # allow writing to cache in this job
+          dependency-graph: generate  # optional: tracks deps too
 
+  gradle-build:
+    runs-on: ubuntu-latest
+    needs: gradle-warmup
     steps:
     - uses: actions/checkout@v7
     - name: Set up JDK 21
@@ -27,8 +42,10 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-    - name: Setup Gradle
+    - name: Setup Gradle (cache read-only)
       uses: gradle/actions/setup-gradle@v6.3.0
+      with:
+        cache-read-only: true    # only read from cache, don't overwrite
     - name: gradle build
       working-directory: ./carbon-jdk-code
-      run: ./gradlew build
+      run: ./gradlew build --no-daemon

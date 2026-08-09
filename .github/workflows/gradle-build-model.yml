@@ -7,7 +7,7 @@ jobs:
 
   build-model:
     runs-on: ubuntu-latest
-
+    needs: gradle-warmup
     steps:
     - uses: actions/checkout@v7
     - name: Set up JDK 21
@@ -15,11 +15,13 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-    - name: Setup Gradle
+    - name: Setup Gradle (cache read-only)
       uses: gradle/actions/setup-gradle@v6.3.0
-    - name: gradle build
+      with:
+        cache-read-only: true    # only read from cache, don't overwrite
+    - name: gradle build model
       working-directory: ./carbon-jdk-code
-      run: ./gradlew libs:carbonlog-model:build
+      run: ./gradlew libs:carbonlog-model:build --no-daemon
     - name: Upload model artifact
       uses: actions/upload-artifact@v7
       with:
