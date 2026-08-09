@@ -17,7 +17,7 @@ permissions:
 
 jobs:
 
-  build:
+  gradle-build:
     runs-on: ubuntu-latest
 
     steps:
