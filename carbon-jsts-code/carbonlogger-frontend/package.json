@@ -7,7 +7,7 @@
     "dev-server": "vite --open",
     "dev": "pnpm run dev-server",
     "dev-task": "vite",
-    "deploy": "npx @azure/static-web-apps-cli login --no-use-keychain && npx @azure/static-web-apps-cli deploy",
+    "deploy": "pnpx @azure/static-web-apps-cli login --no-use-keychain && npx @azure/static-web-apps-cli deploy",
     "build": "tsc && vite build",
     "start": "pnpm run dev",
     "start-remote": "vite --host"
