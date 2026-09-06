@@ -52,3 +52,10 @@ jobs:
       working-directory: ./carbon-jsts-code
       run: |
         pnpm run --if-present -r test:ci
+    - name: node test report
+      uses: dorny/test-reporter@v3
+      if: ${{ !cancelled() }}       # run this step even if previous step failed
+      with:
+        name: Vitest Results
+        path: carbon-jsts-code/**/reports/junit.xml
+        reporter: jest-junit
