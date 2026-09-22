@@ -1,4 +1,4 @@
 [tools]
 gradle = "9.7.1"
 java = "21"
-pnpm = "12.4.2"
+pnpm = "12.5.1"
