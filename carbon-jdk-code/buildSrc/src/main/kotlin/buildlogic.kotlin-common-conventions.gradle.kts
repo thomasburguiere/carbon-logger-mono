@@ -31,7 +31,7 @@ dependencies {
         testImplementation("org.springframework.boot:spring-boot-webtestclient:${springBootVersion}")
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.4")
-        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.2")
+        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.3.3")
         implementation("tools.jackson.module:jackson-module-kotlin:3.2.4")
         implementation("org.mongodb:mongodb-driver-reactivestreams:5.13.0")
         testImplementation("io.projectreactor:reactor-test:3.8.7")
