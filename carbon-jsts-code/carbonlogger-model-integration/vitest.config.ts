@@ -3,6 +3,10 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
     test: {
         environment: 'node', // 'node' for server, 'jsdom' for client
+        reporters: ['verbose', 'junit'],
+        outputFile: {
+            junit: './reports/junit.xml',
+        },
         coverage: {
             provider: 'v8',
             reportsDirectory: './coverage',
