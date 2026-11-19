@@ -3,7 +3,7 @@
  */
 
 
-val springCoreVersion = "7.0.10"
+val springCoreVersion = "7.1.0"
 val springSecurityVersion = "7.2.0"
 val springBootVersion: String = "4.2.0"
 
