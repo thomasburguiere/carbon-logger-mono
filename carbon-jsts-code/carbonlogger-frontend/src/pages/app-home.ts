@@ -4,6 +4,7 @@ import { resolveRouterPath } from '../router';
 
 import '@shoelace-style/shoelace/dist/components/card/card.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@shoelace-style/shoelace/dist/components/button-group/button-group.js';
 
 import { styles } from '../styles/shared-styles';
 
@@ -132,7 +133,10 @@ export class AppHome extends LitElement {
             </ul>
           </sl-card>
 
-          <sl-button href="${resolveRouterPath('about')}" variant="primary">Navigate to About Carbon</sl-button>
+          <sl-button-group>
+            <sl-button href="${resolveRouterPath('storage')}" variant="primary">Storage</sl-button>
+            <sl-button href="${resolveRouterPath('about')}" variant="neutral">Carbon</sl-button>
+          </sl-button-group>
         </div>
       </main>
     `;
